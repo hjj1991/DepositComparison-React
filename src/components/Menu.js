@@ -18,7 +18,7 @@ const Menu = () => {
 
     const array = ['dog', 'cat', 'sheep'];
 const [first, second] = array;
-console.log(setShow); // dog cat
+//console.log(setShow); // dog cat
 
     return (
         <section>
@@ -37,7 +37,7 @@ console.log(setShow); // dog cat
             </Modal.Footer>
             </Modal>
             <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-            <NavLink className="navbar-brand" to="/"><img alt="" width="30"  className="d-inline-block align-top"/>{' EonIT'}</NavLink>
+            <NavLink className="navbar-brand" to="/"><img alt="" width="30"  className="d-inline-block align-top"/>{' HOME'}</NavLink>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav className="mr-auto">
