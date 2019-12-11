@@ -10,7 +10,7 @@ const GET_POST_FAILURE = 'GET_POST_FAILURE';
 
 function getPostAPI(userId) {
 
-    return axios.get(`http://localhost:8080/api/member/checId`, {
+    return axios.get(`http://localhost:8080/api/member/checkId`, {
         params: {userId: userId}
 
     // headers: {

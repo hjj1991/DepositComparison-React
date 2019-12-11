@@ -1,6 +1,7 @@
 import React from 'react';
 import SignUp from 'components/SignUp';
 import * as service from 'services/posts'
+
 // import { bindActionCreators } from 'redux';
 // import { connect } from 'react-redux';
 // import * as checkUserIdActions from '../store/modules/checkUserId';
@@ -15,7 +16,8 @@ class SignUpContainer extends React.Component {
             idCheckMessage: "5~20자의 영문 소문자, 숫자만 사용 가능합니다.",
             pwCheckMessage: "비밀번호는 영문 숫자 조합 7 ~ 14자리 이상입니다.",
             idFontColor: "red",
-            pwFontColor: "red"
+            pwFontColor: "red",
+            isOk: false
         };
     }
 
@@ -28,7 +30,7 @@ class SignUpContainer extends React.Component {
         });
         try {
             const post = await service.getCheckId(userId)
-            console.log(post);
+            //console.log(post);
 
             if(post.data === 1){
                 this.setState({
@@ -44,6 +46,41 @@ class SignUpContainer extends React.Component {
         } catch(e) {
             console.log('에러가 발생!');
         }
+    }
+
+    postSignUp = async (data) => {
+        try {
+            await service.postSignUp(data);
+            this.setState({
+                isOk: true
+            })
+            
+         } catch(e) {
+             console.log('에러가 발생!');
+             alert("다시하세요");
+         }
+    }
+
+    handleOnSubmit = (e) => {
+        
+        e.preventDefault(); 
+        console.log(e.target.userId.value);
+        
+        this.setState({
+            signUpData:{
+                        userId: e.target.userId.value,
+                        userPw: e.target.userPw.value,
+                        userName: e.target.userName.value,
+                        userNickName: e.target.userNickName.value,
+                        userEmail: e.target.userEmail.value
+                }
+        });
+        console.log(this.state);
+
+        this.postSignUp(this.state.signUpData);
+        
+        //this.setState({});
+        
     }
 
     handleCheckValue = (e) => {
@@ -101,6 +138,7 @@ class SignUpContainer extends React.Component {
     render(){
         return(
             <SignUp 
+                signUpSubmit={this.handleOnSubmit}
                 checkUserValue={this.handleCheckValue}
                 idCheckMessage={this.state.idCheckMessage}  
                 idFontColor={this.state.idFontColor}  
@@ -108,6 +146,7 @@ class SignUpContainer extends React.Component {
                 pwFontColor={this.state.pwFontColor}
                 pw2CheckMessage={this.state.pw2CheckMessage}  
                 pw2FontColor={this.state.pw2FontColor}
+                isOk={this.state.isOk}
             />
         )
     }

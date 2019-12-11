@@ -1,18 +1,25 @@
 import React from 'react';
 import {Container, Row, Col, Form, Button} from 'react-bootstrap'
+import { Redirect } from 'react-router-dom';
 import './SignUp.css'
 
 
 
-const SignUp = ({ checkUserValue, idCheckMessage, idFontColor, pwCheckMessage, pwFontColor, pw2CheckMessage, pw2FontColor }) => {
+
+const SignUp = ({ signUpSubmit, checkUserValue, idCheckMessage, idFontColor, pwCheckMessage, pwFontColor, pw2CheckMessage, pw2FontColor, isOk }) => {
+
+    if(isOk === true)
+        alert("회원가입이 성공하였습니다.");
     return (
+    // return isOk ?
+    // (<Redirect to="/"/>) : (
         <Container>
             <Row id="title">
                 <Col>
                     <h1>회원가입</h1>
                 </Col>
             </Row>
-            <Form>
+            <Form onSubmit={signUpSubmit}>
                 <Form.Group controlId="userId" onChange={checkUserValue} >
                     <Form.Label>아이디</Form.Label>
                     <Form.Control type="text" placeholder="아이디를 입력하세요" />
@@ -46,10 +53,11 @@ const SignUp = ({ checkUserValue, idCheckMessage, idFontColor, pwCheckMessage, p
                     <Form.Label>이메일 주소</Form.Label>
                     <Form.Control type="email" placeholder="name@example.com" />
                 </Form.Group>
-                <Button variant="primary" type="submit">
+                <Button variant="outline-primary" type="submit" size="lg" block>
                     회원가입
                 </Button>
             </Form>
+            <div></div>
         </Container>
     );
 };
