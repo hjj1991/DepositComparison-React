@@ -13,7 +13,9 @@ class SignUpContainer extends React.Component {
         super(props);
         this.state = {
             idCheckMessage: "5~20자의 영문 소문자, 숫자만 사용 가능합니다.",
-            exFontColor: "red"
+            pwCheckMessage: "비밀번호는 영문 숫자 조합 7 ~ 14자리 이상입니다.",
+            idFontColor: "red",
+            pwFontColor: "red"
         };
     }
 
@@ -31,12 +33,12 @@ class SignUpContainer extends React.Component {
             if(post.data === 1){
                 this.setState({
                     idCheckMessage : "이미 사용중이거나 탈퇴한 아이디입니다.",
-                    exFontColor: "red"
+                    idFontColor: "red"
                 })
             }else{
                 this.setState({
                     idCheckMessage : "사용가능한 아이디입니다.",
-                    exFontColor: "green"
+                    idFontColor: "green"
                 })
             }
         } catch(e) {
@@ -44,30 +46,68 @@ class SignUpContainer extends React.Component {
         }
     }
 
-    handleCheckUserId = (e) => {
+    handleCheckValue = (e) => {
         this.setState({
             pending: false
         })
-        var re = /^[a-z0-9]{5,20}$/ // 아이디와 패스워드가 적합한지 검사할 정규식
-        var id = e.target.value;
-        if(re.test(id)){
-            this.getPost(id);
-        }else{
-            this.setState({
-                idCheckMessage: "5~20자의 영문 소문자, 숫자만 사용 가능합니다.",
-                exFontColor: "red"
-            })
-        }
+        let re = /^[a-z0-9]{5,20}$/     // 아이디와 패스워드가 적합한지 검사할 정규식
+        let targetId = e.target.id;
+        
+        if(targetId === "userPw"){      //패스워드 유효성 검증
+            var reg1 = /^[a-z0-9]{7,14}$/;    // a-z 0-9 중에 7자리 부터 14자리만 허용 한다는 뜻이구요
+            var reg2 = /[a-z]/g;    
+            var reg3 = /[0-9]/g; 
+            let pw = e.target.value;
 
+            if(reg1.test(pw) && reg2.test(pw) && reg3.test(pw)){
+                this.setState({
+                    pwCheckMessage: "사용가능한 비밀번호입니다.",      
+                    pwFontColor: "green"              
+                })
+            }else{
+                this.setState({
+                    pwCheckMessage: "비밀번호는 영문 숫자 조합 7 ~ 14자리 이상입니다.",   
+                    pwFontColor: "red"             
+                })  
+            }
+        }
+        if(targetId === "userPw2"){
+            if(document.getElementById("userPw").value === document.getElementById("userPw2").value){
+                this.setState({
+                    pw2CheckMessage: "비밀번호가 일치합니다.",
+                    pw2FontColor: "green"
+                })
+            }else{
+                this.setState({
+                    pw2CheckMessage: "비밀번호가 일치하지 않습니다.",
+                    pw2FontColor: "red"
+                })
+            }
+        }
+        if(targetId === "userId"){      //아이디 유효성 검증
+            let id = e.target.value;
+            if(re.test(id)){
+                this.getPost(id);
+            }else{
+                this.setState({
+                    idCheckMessage: "5~20자의 영문 소문자, 숫자만 사용 가능합니다.",
+                    idFontColor: "red"
+                })
+            }
+        }
 
     }
 
     render(){
         return(
             <SignUp 
-                checkUserId={this.handleCheckUserId}
-                idCheckMessage={this.state.idCheckMessage}    
-                exFontColor={this.state.exFontColor}
+                checkUserValue={this.handleCheckValue}
+                idCheckMessage={this.state.idCheckMessage}  
+                idFontColor={this.state.idFontColor}  
+                pwCheckMessage={this.state.pwCheckMessage}  
+                pwFontColor={this.state.pwFontColor}
+                pw2CheckMessage={this.state.pw2CheckMessage}  
+                pw2FontColor={this.state.pw2FontColor}
             />
         )
     }
