@@ -14,9 +14,18 @@ class SignUpContainer extends React.Component {
         super(props);
         this.state = {
             idCheckMessage: "5~20자의 영문 소문자, 숫자만 사용 가능합니다.",
-            pwCheckMessage: "비밀번호는 영문 숫자 조합 7 ~ 14자리 이상입니다.",
+            idCheck: false,
             idFontColor: "red",
+            pwCheckMessage: "비밀번호는 영문 숫자 조합 7 ~ 14자리 이상입니다.",
+            pwCheck: false,
             pwFontColor: "red",
+            pw2Check: false,
+            nameCheck: false,
+            nameCheckMessage: "공백제외 2 ~ 10자로 입력해주세요.",
+            nameFontColor: "red",
+            nickNameCheck: false,
+            nickNameCheckMessage: "한글, 영문, 숫자가 아닙니다.",
+            nickNameFontColor: "red",
             isOk: false
         };
     }
@@ -35,12 +44,14 @@ class SignUpContainer extends React.Component {
             if(post.data === 1){
                 this.setState({
                     idCheckMessage : "이미 사용중이거나 탈퇴한 아이디입니다.",
-                    idFontColor: "red"
+                    idFontColor: "red",
+                    idCheck: false
                 })
             }else{
                 this.setState({
                     idCheckMessage : "사용가능한 아이디입니다.",
-                    idFontColor: "green"
+                    idFontColor: "green",
+                    idCheck: true
                 })
             }
         } catch(e) {
@@ -62,9 +73,8 @@ class SignUpContainer extends React.Component {
     }
 
     handleOnSubmit = (e) => {
-        
         e.preventDefault(); 
-        console.log(e.target.userId.value);
+        //console.log(e.target.userId.value);
         
         this.setState({
             signUpData:{
@@ -74,10 +84,17 @@ class SignUpContainer extends React.Component {
                         userNickName: e.target.userNickName.value,
                         userEmail: e.target.userEmail.value
                 }
-        });
-        console.log(this.state);
+        }, () =>  {
+            let checkData = this.state;
 
-        this.postSignUp(this.state.signUpData);
+            if(checkData.idCheck && checkData.pwCheck && checkData.pw2Check && checkData.nameCheck && checkData.nickNameCheck && (document.getElementById("userEmail").value !="")){
+                this.postSignUp(this.state.signUpData)
+            }
+        }
+        );
+        //console.log(this.state);
+
+       
         
         //this.setState({});
         
@@ -99,12 +116,14 @@ class SignUpContainer extends React.Component {
             if(reg1.test(pw) && reg2.test(pw) && reg3.test(pw)){
                 this.setState({
                     pwCheckMessage: "사용가능한 비밀번호입니다.",      
-                    pwFontColor: "green"              
+                    pwFontColor: "green",
+                    pwCheck: true
                 })
             }else{
                 this.setState({
                     pwCheckMessage: "비밀번호는 영문 숫자 조합 7 ~ 14자리 이상입니다.",   
-                    pwFontColor: "red"             
+                    pwFontColor: "red",
+                    pwCheck: false         
                 })  
             }
         }
@@ -112,12 +131,14 @@ class SignUpContainer extends React.Component {
             if(document.getElementById("userPw").value === document.getElementById("userPw2").value){
                 this.setState({
                     pw2CheckMessage: "비밀번호가 일치합니다.",
-                    pw2FontColor: "green"
+                    pw2FontColor: "green",
+                    pw2Check: true
                 })
             }else{
                 this.setState({
                     pw2CheckMessage: "비밀번호가 일치하지 않습니다.",
-                    pw2FontColor: "red"
+                    pw2FontColor: "red",
+                    pw2Check: false
                 })
             }
         }
@@ -128,8 +149,50 @@ class SignUpContainer extends React.Component {
             }else{
                 this.setState({
                     idCheckMessage: "5~20자의 영문 소문자, 숫자만 사용 가능합니다.",
-                    idFontColor: "red"
+                    idFontColor: "red",
+                    idCheck: false
                 })
+            }
+        }
+        if(targetId === "userName"){
+            let pattern = /([^가-힣\x20^a-z^A-Z^0-9])/i;
+            let blank_pattern = /[\s]/g;
+            let name = e.target.value;
+
+            if((!pattern.test(name)) && name.length >= 2 && name.length <= 10 && (!blank_pattern.test(name))){
+                this.setState({
+                    nameCheck: true,
+                    nameFontColor: "green",
+                    nameCheckMessage: "사용가능합니다.",
+                })
+            }else{
+                this.setState({
+                    nameCheck: false,
+                    nameFontColor: "red",
+                    nameCheckMessage: "공백제외 2 ~ 10자로 입력해주세요.",
+                })
+            }
+        }
+        if(targetId === "userNickName"){
+            let pattern = /([^가-힣\x20^a-z^A-Z^0-9])/i;
+            let blank_pattern = /[\s]/g;
+            let nickName = e.target.value;
+           
+            if((!pattern.test(nickName)) && nickName.length >= 2 && nickName.length <= 10 && (!blank_pattern.test(nickName))){
+                this.setState({
+                    nickNameCheck: true,
+                    nickNameFontColor: "green",
+                    nickNameCheckMessage: "사용가능합니다"
+                })
+
+                
+            }else{
+                this.setState({
+                    nickNameCheck: false,
+                    nickNameFontColor: "red",
+                    nickNameCheckMessage: "한글, 영문, 숫자가 아닙니다.",
+
+            })
             }
         }
 
@@ -146,6 +209,10 @@ class SignUpContainer extends React.Component {
                 pwFontColor={this.state.pwFontColor}
                 pw2CheckMessage={this.state.pw2CheckMessage}  
                 pw2FontColor={this.state.pw2FontColor}
+                nameCheckMessage={this.state.nameCheckMessage}
+                nameFontColor={this.state.nameFontColor}
+                nickNameCheckMessage={this.state.nickNameCheckMessage}
+                nickNameFontColor={this.state.nickNameFontColor}
                 isOk={this.state.isOk}
             />
         )

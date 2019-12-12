@@ -41,7 +41,7 @@ const [first, second] = array;
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav className="mr-auto">
-                <NavLink className="nav-link" to="/Dashboard" >Dashboard</NavLink>
+                <NavLink className="nav-link" to="/signup" >SignUp</NavLink>
                 <NavLink className="nav-link" to="/Workloads" >Workloads</NavLink>
                 {/* <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
                     <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>

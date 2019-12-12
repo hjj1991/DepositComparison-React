@@ -6,13 +6,13 @@ import './SignUp.css'
 
 
 
-const SignUp = ({ signUpSubmit, checkUserValue, idCheckMessage, idFontColor, pwCheckMessage, pwFontColor, pw2CheckMessage, pw2FontColor, isOk }) => {
+const SignUp = ({ signUpSubmit, checkUserValue, idCheckMessage, idFontColor, pwCheckMessage, pwFontColor, pw2CheckMessage, pw2FontColor, nameCheckMessage, nameFontColor, nickNameCheckMessage, nickNameFontColor, isOk }) => {
 
     if(isOk === true)
         alert("회원가입이 성공하였습니다.");
-    return (
-    // return isOk ?
-    // (<Redirect to="/"/>) : (
+    // return (
+    return isOk ?
+    (<Redirect to="/"/>) : (
         <Container>
             <Row id="title">
                 <Col>
@@ -20,7 +20,7 @@ const SignUp = ({ signUpSubmit, checkUserValue, idCheckMessage, idFontColor, pwC
                 </Col>
             </Row>
             <Form onSubmit={signUpSubmit}>
-                <Form.Group controlId="userId" onChange={checkUserValue} >
+                <Form.Group controlId="userId" onBlur={checkUserValue} >
                     <Form.Label>아이디</Form.Label>
                     <Form.Control type="text" placeholder="아이디를 입력하세요" />
                     <div style={{"color": idFontColor}}>
@@ -41,13 +41,19 @@ const SignUp = ({ signUpSubmit, checkUserValue, idCheckMessage, idFontColor, pwC
                         {pw2CheckMessage}
                     </div>
                 </Form.Group>
-                <Form.Group controlId="userName" >
+                <Form.Group controlId="userName" onChange={checkUserValue} >
                     <Form.Label>이름</Form.Label>
                     <Form.Control type="text" placeholder="이름을 입력하세요" />
+                    <div style={{"color": nameFontColor}}>
+                        {nameCheckMessage}
+                    </div>
                 </Form.Group>
-                <Form.Group controlId="userNickName" >
+                <Form.Group controlId="userNickName" onChange={checkUserValue} >
                     <Form.Label>별명</Form.Label>
                     <Form.Control type="text" placeholder="별명을 입력하세요" />
+                    <div style={{"color": nickNameFontColor}}>
+                        {nickNameCheckMessage}
+                    </div>
                 </Form.Group>
                 <Form.Group controlId="userEmail">
                     <Form.Label>이메일 주소</Form.Label>
