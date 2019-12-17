@@ -4,7 +4,7 @@ import Nav from 'react-bootstrap/Nav'
 import { NavLink } from 'react-router-dom';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
-import {render} from 'react-dom';
+// import {render} from 'react-dom';
 // import logo from '../logo.png' //실제 로고파일 경로
 
 
@@ -16,8 +16,8 @@ const Menu = () => {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-    const array = ['dog', 'cat', 'sheep'];
-const [first, second] = array;
+    // const array = ['dog', 'cat', 'sheep'];
+// const [first, second] = array;
 //console.log(setShow); // dog cat
 
     return (
@@ -42,7 +42,7 @@ const [first, second] = array;
             <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav className="mr-auto">
                 <NavLink className="nav-link" to="/signup" >SignUp</NavLink>
-                <NavLink className="nav-link" to="/Workloads" >Workloads</NavLink>
+                <NavLink className="nav-link" to="/board" >Board</NavLink>
                 {/* <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
                     <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
                     <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>

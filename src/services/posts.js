@@ -1,7 +1,9 @@
 import axios from 'axios';
 
+var siteUrl = "http://localhost:8080";
+
 export function getCheckId(id) {
-    return axios.get(`http://localhost:8080/api/member/checkId`, {
+    return axios.get(siteUrl + `/api/member/checkId`, {
         params: {userId: id}
 
     // headers: {
@@ -11,8 +13,14 @@ export function getCheckId(id) {
     });
 }
 
+export function getBoardList(page, pageSize){
+    return axios.get(siteUrl + '/api/board', {
+        params: {page: page, pageSize: pageSize}
+    });
+}
+
 export function postSignUp(data){
-    return axios.put('http://localhost:8080/api/member/signup', {
+    return axios.put(siteUrl + '/api/member/signup', {
         userId: data.userId,
         userPw: data.userPw,
         name: data.userName,

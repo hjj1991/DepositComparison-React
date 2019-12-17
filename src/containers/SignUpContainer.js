@@ -21,10 +21,10 @@ class SignUpContainer extends React.Component {
             pwFontColor: "red",
             pw2Check: false,
             nameCheck: false,
-            nameCheckMessage: "공백제외 2 ~ 10자로 입력해주세요.",
+            nameCheckMessage: "공백제외 한글, 영문, 숫자 2 ~ 10자로 입력해주세요.",
             nameFontColor: "red",
             nickNameCheck: false,
-            nickNameCheckMessage: "한글, 영문, 숫자가 아닙니다.",
+            nickNameCheckMessage: "공백제외 한글, 영문, 숫자 2 ~ 10자로 입력해주세요.",
             nickNameFontColor: "red",
             isOk: false
         };
@@ -87,7 +87,7 @@ class SignUpContainer extends React.Component {
         }, () =>  {
             let checkData = this.state;
 
-            if(checkData.idCheck && checkData.pwCheck && checkData.pw2Check && checkData.nameCheck && checkData.nickNameCheck && (document.getElementById("userEmail").value !="")){
+            if(checkData.idCheck && checkData.pwCheck && checkData.pw2Check && checkData.nameCheck && checkData.nickNameCheck && (document.getElementById("userEmail").value !=="")){
                 this.postSignUp(this.state.signUpData)
             }
         }
@@ -169,7 +169,7 @@ class SignUpContainer extends React.Component {
                 this.setState({
                     nameCheck: false,
                     nameFontColor: "red",
-                    nameCheckMessage: "공백제외 2 ~ 10자로 입력해주세요.",
+                    nameCheckMessage: "공백제외 한글, 영문, 숫자 2 ~ 10자로 입력해주세요.",
                 })
             }
         }
@@ -190,7 +190,7 @@ class SignUpContainer extends React.Component {
                 this.setState({
                     nickNameCheck: false,
                     nickNameFontColor: "red",
-                    nickNameCheckMessage: "한글, 영문, 숫자가 아닙니다.",
+                    nickNameCheckMessage: "공백제외 한글, 영문, 숫자 2 ~ 10자로 입력해주세요.",
 
             })
             }

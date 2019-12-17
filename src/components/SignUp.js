@@ -6,7 +6,7 @@ import './SignUp.css'
 
 
 
-const SignUp = ({ signUpSubmit, checkUserValue, idCheckMessage, idFontColor, pwCheckMessage, pwFontColor, pw2CheckMessage, pw2FontColor, nameCheckMessage, nameFontColor, nickNameCheckMessage, nickNameFontColor, isOk }) => {
+const SighUp = ({ signUpSubmit, checkUserValue, idCheckMessage, idFontColor, pwCheckMessage, pwFontColor, pw2CheckMessage, pw2FontColor, nameCheckMessage, nameFontColor, nickNameCheckMessage, nickNameFontColor, isOk }) => {
 
     if(isOk === true)
         alert("회원가입이 성공하였습니다.");
@@ -68,4 +68,4 @@ const SignUp = ({ signUpSubmit, checkUserValue, idCheckMessage, idFontColor, pwC
     );
 };
 
-export default SignUp;
+export default SighUp;
