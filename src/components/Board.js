@@ -1,6 +1,7 @@
 import React from 'react';
 import {Container, Row, Col, Table} from 'react-bootstrap'
 import Pagination from 'react-bootstrap/Pagination'
+import { Link } from 'react-router-dom';
 
 
 
@@ -46,12 +47,18 @@ const Board = ({boardList, onClickPage, currentPage}) => {
         }
     }
     const NextPage = () => {
-        return <Pagination.Next onClick={onClickPage} />
+        if(currentPage + 4 < boardList.data.pageCount){
+            return <Pagination.Next onClick={onClickPage} />
+            
+        }else{
+            return <Pagination.Next disabled />
+        }
     }
 
     const paginate = pageList.map((item, index) => {
-        console.log("아이템" + item);
-        console.log("중요" + currentPage)
+        //console.log("아이템" + item);
+        //console.log("중요" + currentPage)
+        let urlPath = '/board?page=' + item + '&pageSize=10'
         if(item == currentPage){
             console.log("이거 같음");
             return(
@@ -59,7 +66,8 @@ const Board = ({boardList, onClickPage, currentPage}) => {
             )
         }else{
             return(
-                <Pagination.Item onClick={onClickPage}>{item}</Pagination.Item>
+                // <Pagination.Item onClick={onClickPage}>{item}</Pagination.Item>
+                <Pagination.Item><Link to={urlPath}>{item}</Link></Pagination.Item>
                     //<Pagination.Ellipsis />
                     
                     // <Pagination.Item>{11}</Pagination.Item>

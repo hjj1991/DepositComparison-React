@@ -10,6 +10,7 @@ import * as service from 'services/posts'
 
 class BoardContainer extends React.Component {
 
+    
     constructor(props) {
         super(props);
         this.state = {
@@ -20,7 +21,12 @@ class BoardContainer extends React.Component {
     }
 
     componentDidMount() {
-        this.getPost(this.state.currentPage, 10);
+        console.log(this.props)
+        if(typeof this.props.page == "undefined" || typeof this.props.pageSize == "undefined"){
+            this.getPost(1, 10);
+        }else{
+            this.getPost(this.props.page, this.props.pageSize);
+        }
         // setTimeout(() => {
         //     this.setState({ isOk: true});
         // }, 600);   
@@ -44,10 +50,25 @@ class BoardContainer extends React.Component {
 
     handleChangePage = (e) => {
         console.log(e.target.text);
+        // console.log("계산이다:" + (this.state.currentPage - 9 < 1));
+        var currentPage = document.getElementsByClassName("page-item active");
+        
+        this.setState({
+            isOk: false
+        })
         if(e.target.text === "‹Previous"){
-
-        }else if(e.target.text === ">Next"){
-
+            if(this.state.currentPage - 9 < 1){
+                this.getPost(1, 10);
+            }else{
+                this.getPost(this.state.currentPage - 9, 10);
+            }
+        }else if(e.target.text === "›Next"){
+            console.log(this.state.boardList.data.pageCount);
+            if(this.state.currentPage + 10 > this.state.boardList.data.pageCount){
+                this.getPost(this.state.boardList.data.pageCount, 10);
+            }else{
+                this.getPost(this.state.currentPage + 9);
+            }
         }else{
             this.getPost(e.target.text, 10);
         }
@@ -56,12 +77,15 @@ class BoardContainer extends React.Component {
 
 
     render(){
+        console.log(this.props.page);
+        console.log(this.props.pageSize);
+        // this.getPost(this.props.page, this.props.pageSize);
         // var boardList = getPost(1, 20);
         return(
         this.state.isOk?(<Board 
                 boardList={this.state.boardList}
                 onClickPage={this.handleChangePage}
-                currentPage={this.state.currentPage}
+                currentPage={this.props.page}
                 />):
                 <div>로딩중</div>
         
