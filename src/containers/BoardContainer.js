@@ -14,12 +14,13 @@ class BoardContainer extends React.Component {
         super(props);
         this.state = {
             pending: false,
-            isOk: false
+            isOk: false,
+            currentPage: 1
         };
     }
 
     componentDidMount() {
-        this.getPost(1, 10);
+        this.getPost(this.state.currentPage, 10);
         // setTimeout(() => {
         //     this.setState({ isOk: true});
         // }, 600);   
@@ -31,7 +32,8 @@ class BoardContainer extends React.Component {
             console.log(post);
             this.setState({
                 boardList: post,
-                isOk: true
+                isOk: true,
+                currentPage: page
             });
             
             
@@ -40,14 +42,28 @@ class BoardContainer extends React.Component {
         }
     };
 
+    handleChangePage = (e) => {
+        console.log(e.target.text);
+        if(e.target.text === "‹Previous"){
+
+        }else if(e.target.text === ">Next"){
+
+        }else{
+            this.getPost(e.target.text, 10);
+        }
+    }
+
+
 
     render(){
         // var boardList = getPost(1, 20);
         return(
         this.state.isOk?(<Board 
                 boardList={this.state.boardList}
+                onClickPage={this.handleChangePage}
+                currentPage={this.state.currentPage}
                 />):
-                <div>하이루</div>
+                <div>로딩중</div>
         
         )
     }
