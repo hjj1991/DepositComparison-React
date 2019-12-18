@@ -40,6 +40,7 @@ const Board = ({boardList, onClickPage, currentPage}) => {
         )
     })
     const PrevPage = () => {
+        console.log(currentPage);
         if(currentPage < 6){
             return <Pagination.Prev disabled />
         }else{
@@ -67,7 +68,8 @@ const Board = ({boardList, onClickPage, currentPage}) => {
         }else{
             return(
                 // <Pagination.Item onClick={onClickPage}>{item}</Pagination.Item>
-                <Pagination.Item><Link to={urlPath}>{item}</Link></Pagination.Item>
+                <li className="page-item"><Link className="page-link" to={urlPath}>{item}</Link></li>
+                // <Pagination.Item></Pagination.Item>
                     //<Pagination.Ellipsis />
                     
                     // <Pagination.Item>{11}</Pagination.Item>

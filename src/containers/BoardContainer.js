@@ -32,6 +32,12 @@ class BoardContainer extends React.Component {
         // }, 600);   
       }
 
+    componentWillReceiveProps(nextProps){
+        this.setState({
+            isOk: false
+        }, () => {this.getPost(this.props.page, this.props.pageSize)});
+        
+    }
     getPost = async (page, pageSize) => {
         try {
             const post = await service.getBoardList(page, pageSize);
