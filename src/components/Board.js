@@ -6,20 +6,22 @@ import { Link } from 'react-router-dom';
 
 
 
-const Board = ({boardList, onClickPage, currentPage}) => {
+const Board = ({history, boardList, onClickPage, currentPage}) => {
+    console.log("하이롱" + history);
+    console.log("하이롱2" + boardList);
     var firstPage; //첫페이지
     var lastPage; //마지막페이지
     if(currentPage > 5){
         firstPage = currentPage - 4;
         lastPage = currentPage + 4;
-        if(lastPage > boardList.data.pageCount){
-            lastPage = boardList.data.pageCount;
+        if(lastPage > boardList.pageCount){
+            lastPage = boardList.pageCount;
         }
     }else{
         firstPage = 1;
         lastPage = 9;
-        if(lastPage > boardList.data.PageCount){
-            lastPage = boardList.data.pageCount;
+        if(lastPage > boardList.PageCount){
+            lastPage = boardList.pageCount;
         }
     }
 
@@ -27,7 +29,7 @@ const Board = ({boardList, onClickPage, currentPage}) => {
     for(; firstPage<=lastPage; firstPage++){ 
         pageList.push(firstPage);
     }  
-    const boardItem = boardList.data.results.map((item, index) => {
+    const boardItem = boardList.results.map((item, index) => {
 
         return(
             <tr>
@@ -48,7 +50,7 @@ const Board = ({boardList, onClickPage, currentPage}) => {
         }
     }
     const NextPage = () => {
-        if(currentPage + 4 < boardList.data.pageCount){
+        if(currentPage + 4 < boardList.pageCount){
             return <Pagination.Next onClick={onClickPage} />
             
         }else{
@@ -67,8 +69,8 @@ const Board = ({boardList, onClickPage, currentPage}) => {
             )
         }else{
             return(
-                // <Pagination.Item onClick={onClickPage}>{item}</Pagination.Item>
-                <li className="page-item"><Link className="page-link" to={urlPath}>{item}</Link></li>
+                <Pagination.Item onClick={onClickPage}>{item}</Pagination.Item>
+                // <li className="page-item"><Link className="page-link" to={urlPath}>{item}</Link></li>
                 // <Pagination.Item></Pagination.Item>
                     //<Pagination.Ellipsis />
                     
