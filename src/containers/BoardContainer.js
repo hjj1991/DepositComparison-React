@@ -69,7 +69,7 @@ class BoardContainer extends React.Component {
     // }
 
     shouldComponentUpdate(nextProps, nextState){
-        console.log("shuhuhu");
+        // console.log("shuhuhu");
         console.log(JSON.parse(window.history.state.data));
         nextState = JSON.parse(window.history.state.data);
         console.log(nextState);
