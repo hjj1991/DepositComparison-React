@@ -18,6 +18,9 @@ export function getBoardList(page, pageSize){
         params: {page: page, pageSize: pageSize}
     });
 }
+export function getBoardDetail(indx){
+    return axios.get(siteUrl + '/api/board/' + indx);
+}
 
 export function postSignUp(data){
     return axios.put(siteUrl + '/api/member/signup', {

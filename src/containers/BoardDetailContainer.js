@@ -1,7 +1,6 @@
 import React from 'react';
-import Board from 'components/Board';
+import BoardDetail from 'components/BoardDetail';
 import * as service from 'services/posts'
-import {browserHistory} from 'react-router-dom';
 
 // import { bindActionCreators } from 'redux';
 // import { connect } from 'react-redux';
@@ -9,7 +8,7 @@ import {browserHistory} from 'react-router-dom';
 
 
 
-class BoardContainer extends React.Component {
+class BoardDetailContainer extends React.Component {
 
     
     constructor(props) {
@@ -17,8 +16,6 @@ class BoardContainer extends React.Component {
         this.state = {
             pending: false,
             isOk: false,
-            currentPage: 1,
-            pageSize: 10
         };
     }
 
@@ -38,17 +35,12 @@ class BoardContainer extends React.Component {
       }
 
     componentDidMount() {
-        console.log("마운트");
-        console.log(this.props);
-        if(typeof this.props.page == "undefined"){
-            this.getPost(1, 10);
-        }else{
-            this.getPost(this.props.page, 10);
+            this.getPost(this.props.detailIndx);
         }
         // setTimeout(() => {
         //     this.setState({ isOk: true});
         // }, 600);   
-      }
+
     //   static getDerivedStateFromProps(nextProps, prevState) {
     //     console.log("드리븐");
     //     console.log(prevState.boardList);
@@ -66,14 +58,13 @@ class BoardContainer extends React.Component {
     //     return true;
     // }
 
-    getPost = async (page, pageSize) => {
+    getPost = async (indx) => {
         try {
-            const post = await service.getBoardList(page, pageSize);
-            // console.log(post);
+            const post = await service.getBoardDetail(indx);
+            console.log(post);
             this.setState({
-                boardList: post,
-                isOk: true,
-                currentPage: page
+                boardDetail: post,
+                isOk: true
             });
             
             
@@ -84,13 +75,39 @@ class BoardContainer extends React.Component {
 
 
 
-    handleChangePage = (indx) => {
-        // console.log(e.target.text);
-        // this.context.router.transitionTo('/board/'+indx);
-        // browserHistory.push('/board/'+indx);
-        // console.log(e.target);
-        this.props.history.push('/board/'+ indx);
-        // this.router.transitionTo('/board/'+indx);
+    handleChangePage = (e) => {
+        console.log(e.target.text);
+        // console.log("계산이다:" + (this.state.currentPage - 9 < 1));
+        // var currentPage = document.getElementsByClassName("page-item active");
+        
+        
+        this.setState({
+            isOk: false
+        })
+        if(e.target.text === "‹Previous"){
+            if(this.state.currentPage - 9 < 1){
+                this.getPost(1, 10);
+            }else{
+                this.getPost(this.state.currentPage - 9, 10);
+            }
+        }else if(e.target.text === "›Next"){
+            console.log(this.state.boardList.data.pageCount);
+            if(this.state.currentPage + 10 > this.state.boardList.data.pageCount){
+                this.getPost(this.state.boardList.data.pageCount, 10);
+            }else{
+                this.getPost(this.state.currentPage + 9);
+            }
+        }else{
+            // this.props.history.replace(this.state);
+            this.getPost(e.target.text, 10);
+            // console.log(this.props.history.replace);
+
+            // this.props.history.
+            // this.props.history.pushState({boardList: this.state.boardList});
+            // window.history.pushState({data: JSON.stringify(this.state)}, '', '/board?page=' + e.target.text + '&pageSize=10');
+            // this.props.history.push('/board?page=' + e.target.text + '&pageSize=10');
+
+        }
     }
 
 
@@ -99,10 +116,9 @@ class BoardContainer extends React.Component {
         // this.getPost(this.props.page, this.props.pageSize);
         // var boardList = getPost(1, 20);
         return(
-        this.state.isOk?(<Board 
-                boardList={this.state.boardList.data}
+        this.state.isOk?(<BoardDetail 
+                boardDetail={this.state.boardDetail.data}
                 onClickPage={this.handleChangePage}
-                currentPage={this.state.currentPage}
                 />):
                 <div>로딩중</div>
         
@@ -111,4 +127,4 @@ class BoardContainer extends React.Component {
 
 }
 
-export default BoardContainer;
+export default BoardDetailContainer;

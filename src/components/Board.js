@@ -6,9 +6,7 @@ import { Link } from 'react-router-dom';
 
 
 
-const Board = ({history, boardList, onClickPage, currentPage}) => {
-    console.log("하이롱" + history);
-    console.log("하이롱2" + boardList);
+const Board = ({ boardList, onClickPage, currentPage}) => {
     var firstPage; //첫페이지
     var lastPage; //마지막페이지
     if(currentPage > 5){
@@ -32,26 +30,44 @@ const Board = ({history, boardList, onClickPage, currentPage}) => {
     const boardItem = boardList.results.map((item, index) => {
 
         return(
-            <tr>
-                <td>{item.boardIdx}</td>
-                <td>{item.title}</td>
-                <td>{item.creatorId}</td>
-                <td>{item.createdDatetime}</td>
-                <td>{item.hitCnt}</td>
-            </tr>
+            
+                <tr id={index}>
+                    
+                    <td>{item.boardIdx}</td>
+                    {/* <td><Link to={'/board/' + item.boardIdx}>{item.title}</Link></td> */}
+                    <td onClick={() => {onClickPage(item.boardIdx)}}>{item.title}</td>
+                    <td>{item.creatorId}</td>
+                    <td>{item.createdDatetime}</td>
+                    <td>{item.hitCnt}</td>
+                    
+                </tr>
+            
         )
     })
     const PrevPage = () => {
-        console.log(currentPage);
-        if(currentPage < 6){
+        var prevNum;
+        if(Number(currentPage) < 6){
             return <Pagination.Prev disabled />
         }else{
-            return <Pagination.Prev onClick={onClickPage} />
+            if(Number(currentPage) - 9 < 1){
+                prevNum = 1;
+            }else{
+                prevNum = Number(currentPage) - 9
+            }
+            return <li className="page-item"><Link className="page-link" to={'/board?page=' + prevNum}>‹</Link></li>
         }
     }
     const NextPage = () => {
-        if(currentPage + 4 < boardList.pageCount){
-            return <Pagination.Next onClick={onClickPage} />
+        var nextNum;
+        if(Number(currentPage) + 4 < Number(boardList.pageCount)){
+            if(Number(currentPage) + 10 > Number(boardList.pageCount)){
+                nextNum = boardList.pageCount;
+            }else{
+                nextNum = Number(currentPage) + 9;
+            }
+            // console.log("맞잖아");
+            // return <Pagination.Next onClick={onClickPage} />
+            return <li className="page-item"><Link className="page-link" to={'/board?page=' + nextNum}>›</Link></li>
             
         }else{
             return <Pagination.Next disabled />
@@ -61,16 +77,15 @@ const Board = ({history, boardList, onClickPage, currentPage}) => {
     const paginate = pageList.map((item, index) => {
         //console.log("아이템" + item);
         //console.log("중요" + currentPage)
-        let urlPath = '/board?page=' + item + '&pageSize=10'
         if(item == currentPage){
-            console.log("이거 같음");
+    
             return(
                 <Pagination.Item active>{item}</Pagination.Item>
             )
         }else{
             return(
-                <Pagination.Item onClick={onClickPage}>{item}</Pagination.Item>
-                // <li className="page-item"><Link className="page-link" to={urlPath}>{item}</Link></li>
+                // <Pagination.Item onClick={onClickPage}>{item}</Pagination.Item>
+                <li id={index} className="page-item"><Link className="page-link" to={'/board?page=' + item}>{item}</Link></li>
                 // <Pagination.Item></Pagination.Item>
                     //<Pagination.Ellipsis />
                     
@@ -94,14 +109,14 @@ const Board = ({history, boardList, onClickPage, currentPage}) => {
                 </Col>
             </Row>
         <div className="table-responsive">
-            <Table  striped bordered hover variant="dark">
+            <Table  striped bordered hover>
                 <thead>
                     <tr>                        
-                        <th>번호</th>
-                        <th>제목</th>
-                        <th>글쓴이</th>
-                        <th>날짜</th>
-                        <th>조회수</th>
+                        <th style={{"width": "10%"}}>No.</th>
+                        <th style={{"width": "50%"}}>제목</th>
+                        <th style={{"width": "10%"}}>글쓴이</th>
+                        <th style={{"width": "20%"}}>날짜</th>
+                        <th style={{"width": "10%"}}>조회수</th>
                     </tr>
                 </thead>
                 <tbody> 

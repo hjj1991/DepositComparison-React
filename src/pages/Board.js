@@ -5,15 +5,18 @@ import queryString from 'query-string';
 const Board = ({location, history}) => {
 
     const query = queryString.parse(location.search);
-    const page = query.page;
-    const pageSize = query.pageSize;
-    console.log(query);
-    console.log("야호 ");
-    console.log(history);
+    let page = query.page;
+    // const pageSize = query.pageSize;
+    // console.log(query);
+    // console.log("야호 ");
+    // console.log(history);
+    if (typeof query.page == "undefined"){
+        page = 1;
+    }
     return (
         <BoardContainer
             page={page}
-            pageSize={pageSize}
+            // pageSize={pageSize}
             history={history}
         />
     );
