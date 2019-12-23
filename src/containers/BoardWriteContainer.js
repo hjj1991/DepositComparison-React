@@ -2,6 +2,8 @@ import React from 'react';
 import BoardWrite from 'components/BoardWrite';
 import * as service from 'services/posts'
 import loding from 'images/loading.gif';
+import 'codemirror/lib/codemirror.css';
+
 
 // import { bindActionCreators } from 'redux';
 // import { connect } from 'react-redux';
@@ -12,13 +14,12 @@ import loding from 'images/loading.gif';
 class BoardWriteContainer extends React.Component {
 
     
-    constructor(props) {
-        super(props);
+    constructor(){
+        super();
         this.state = {
-            pending: false,
-            isOk: false,
+            content : ''
         };
-    }
+    };
 
     componentDidMount() {
         }
@@ -41,16 +42,15 @@ class BoardWriteContainer extends React.Component {
 
 
 
-
-
     render(){
         // this.getPost(this.props.page, this.props.pageSize);
         // var boardList = getPost(1, 20);
         return(
-        <BoardWrite />
+        <BoardWrite 
+        />
         
         )
-    }
+    };
 
 }
 

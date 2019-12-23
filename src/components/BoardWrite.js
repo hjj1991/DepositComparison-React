@@ -2,35 +2,50 @@ import React from 'react';
 import {Container, Row, Col, Table} from 'react-bootstrap'
 import Pagination from 'react-bootstrap/Pagination'
 import { Link } from 'react-router-dom';
-import CKEditor from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import 'css/boardStyle.css'
+import 'tui-editor/dist/tui-editor.min.css';
+import 'tui-editor/dist/tui-editor-contents.min.css';
+import { Editor } from '@toast-ui/react-editor'
 
 
 
 
-const BoardWrite = ({ boardDetail}) => {
+const BoardWrite = ({ toastEditor}) => {
+    var editorRef = React.createRef();
+
 
     return (
         <Container>
             <Row id="title">
                 <Col>
-                    <h1>게시판</h1>
+                    <h1 onClick={(e) => console.log(editorRef.current.getInstance().getHtml())}>게시판</h1>
                 </Col>
             </Row>
             <Row>
-            <CKEditor
-                    editor={ ClassicEditor }
-                    data="<p>Hello from CKEditor 5!</p>"
-                    onInit={ editor => {
-                        // You can store the "editor" and use when it is needed.
-                        console.log( 'Editor is ready to use!', editor );
-                    } }
-                    onChange={ ( event, editor ) => {
-                        const data = editor.getData();
-                        console.log( { event, editor, data } );
-                    } }
-                />
+                <Col>
+                    <Editor
+                        initialValue="hello react editor world!"
+                        previewStyle="vertical"
+                        height="600px"
+                        initialEditType="markdown"
+                        useCommandShortcut={false}
+                        ref={editorRef}
+                        exts={[
+                            {
+                            name: 'chart',
+                            minWidth: 100,
+                            maxWidth: 600,
+                            minHeight: 100,
+                            maxHeight: 300
+                            },
+                            'scrollSync',
+                            'colorSyntax',
+                            'uml',
+                            'mark',
+                            'table'
+                        ]}
+                        />
+                </Col>
             </Row>
     </Container>
     

@@ -3,26 +3,28 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@ckeditor/ckeditor5-build-classic": "^16.0.0",
-    "@ckeditor/ckeditor5-react": "^2.0.0",
+    "@toast-ui/react-editor": "^1.0.1",
     "axios": "^0.19.0",
     "bootstrap": "^4.3.1",
     "cross-env": "^6.0.3",
+    "draft-js": "^0.11.3",
     "immutable": "^4.0.0-rc.12",
     "query-string": "^6.8.3",
-    "react": "^16.10.2",
+    "react": "^16.12.0",
     "react-app-polyfill": "^1.0.5",
     "react-bootstrap": "^1.0.0-beta.14",
-    "react-dom": "^16.10.2",
+    "react-dom": "^16.12.0",
     "react-redux": "^7.1.1",
     "react-router-dom": "^5.1.2",
     "react-scripts": "^3.3.0",
+    "redux": "^4.0.4",
     "redux-actions": "^2.6.5",
     "redux-logger": "^3.0.6",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "typescript": "^3.7.4"
   },
   "scripts": {
-    "start": "cross-env NODE_PATH=src react-scripts start",
+    "start": "cross-env NODE_PATH=src react-scripts  --max_old_space_size=4096 start",
     "build": "cross-env NODE_PATH=src react-scripts build",
     "test": "cross-env NODE_PATH=src react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
@@ -43,9 +45,5 @@
       "last 1 safari version",
       "ie >= 9"
     ]
-  },
-  "devDependencies": {
-    "react-redux": "^7.1.1",
-    "redux": "^4.0.4"
   }
 }
