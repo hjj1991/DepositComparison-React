@@ -1,12 +1,13 @@
 import React from 'react';
-import {Container, Row, Col, Table} from 'react-bootstrap'
+import {Container, Row, Col, Table, Button} from 'react-bootstrap'
+import ButtonGroup from 'react-bootstrap/ButtonGroup'
 import Pagination from 'react-bootstrap/Pagination'
 import { Link } from 'react-router-dom';
 
 
 
 
-const Board = ({ boardList, onClickPage, currentPage}) => {
+const Board = ({ boardList, onClickPage, onClickDetail, currentPage, onClickWrite}) => {
     var firstPage; //첫페이지
     var lastPage; //마지막페이지
     if(currentPage > 5){
@@ -35,7 +36,7 @@ const Board = ({ boardList, onClickPage, currentPage}) => {
                     
                     <td>{item.boardIdx}</td>
                     {/* <td><Link to={'/board/' + item.boardIdx}>{item.title}</Link></td> */}
-                    <td onClick={() => {onClickPage(item.boardIdx)}}>{item.title}</td>
+                    <td onClick={() => {onClickDetail(item.boardIdx)}}>{item.title}</td>
                     <td>{item.creatorId}</td>
                     <td>{item.createdDatetime}</td>
                     <td>{item.hitCnt}</td>
@@ -80,12 +81,14 @@ const Board = ({ boardList, onClickPage, currentPage}) => {
         if(item == currentPage){
     
             return(
-                <Pagination.Item active>{item}</Pagination.Item>
+                // <Pagination.Item active>{item}</Pagination.Item>
+                <Button  variant="secondary"  disabled >{item}</Button>
             )
         }else{
             return(
                 // <Pagination.Item onClick={onClickPage}>{item}</Pagination.Item>
-                <li id={index} className="page-item"><Link className="page-link" to={'/board?page=' + item}>{item}</Link></li>
+                // <li id={index} className="btn btn-secondary"><Link className="page-link" to={'/board?page=' + item}>{item}</Link></li>
+                <Button  variant="secondary" onClick={() => {onClickPage(item)}}>{item}</Button>
                 // <Pagination.Item></Pagination.Item>
                     //<Pagination.Ellipsis />
                     
@@ -108,8 +111,8 @@ const Board = ({ boardList, onClickPage, currentPage}) => {
                     <h1>게시판</h1>
                 </Col>
             </Row>
-        <div className="table-responsive">
-            <Table  striped bordered hover>
+        <div className="table-board">
+            <Table  striped  hover>
                 <thead>
                     <tr>                        
                         <th style={{"width": "10%"}}>No.</th>
@@ -123,10 +126,16 @@ const Board = ({ boardList, onClickPage, currentPage}) => {
                     {boardItem}
                 </tbody>
             </Table>
+            <Row className="boarder-bottom-toolbox">
+                <Col className="boarder-bottom-toolbox-left col-6"></Col>
+                <Col className="boarder-bottom-toolbox-right col-6"><Button variant="outline-secondary" onClick={onClickWrite}>글쓰기</Button></Col>
+            </Row>
             <Pagination>
+                <ButtonGroup className="mr-2" aria-label="First group">
                 <PrevPage />
                 {paginate}
                 <NextPage />
+                </ButtonGroup>
             </Pagination>
         </div>
     </Container>

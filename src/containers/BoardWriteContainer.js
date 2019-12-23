@@ -1,5 +1,5 @@
 import React from 'react';
-import BoardDetail from 'components/BoardDetail';
+import BoardWrite from 'components/BoardWrite';
 import * as service from 'services/posts'
 import loding from 'images/loading.gif';
 
@@ -9,7 +9,7 @@ import loding from 'images/loading.gif';
 
 
 
-class BoardDetailContainer extends React.Component {
+class BoardWriteContainer extends React.Component {
 
     
     constructor(props) {
@@ -21,8 +21,8 @@ class BoardDetailContainer extends React.Component {
     }
 
     componentDidMount() {
-            this.getPost(this.props.detailIndx);
         }
+
 
     getPost = async (indx) => {
         try {
@@ -41,19 +41,17 @@ class BoardDetailContainer extends React.Component {
 
 
 
+
+
     render(){
         // this.getPost(this.props.page, this.props.pageSize);
         // var boardList = getPost(1, 20);
         return(
-        this.state.isOk?(<BoardDetail 
-                boardDetail={this.state.boardDetail.data}
-                onClickPage={this.handleChangePage}
-                />):
-                <img style={{"width": "100%"}} src={loding} />
+        <BoardWrite />
         
         )
     }
 
 }
 
-export default BoardDetailContainer;
+export default BoardWriteContainer;

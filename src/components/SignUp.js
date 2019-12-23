@@ -59,7 +59,7 @@ const SighUp = ({ signUpSubmit, checkUserValue, idCheckMessage, idFontColor, pwC
                     <Form.Label>이메일 주소</Form.Label>
                     <Form.Control type="email" placeholder="name@example.com" />
                 </Form.Group>
-                <Button variant="outline-primary" type="submit" size="lg" block>
+                <Button variant="outline-secondary" type="submit" size="lg" block>
                     회원가입
                 </Button>
             </Form>

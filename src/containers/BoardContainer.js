@@ -2,6 +2,7 @@ import React from 'react';
 import Board from 'components/Board';
 import * as service from 'services/posts'
 import {browserHistory} from 'react-router-dom';
+import loding from 'images/loading.gif';
 
 // import { bindActionCreators } from 'redux';
 // import { connect } from 'react-redux';
@@ -89,8 +90,22 @@ class BoardContainer extends React.Component {
         // this.context.router.transitionTo('/board/'+indx);
         // browserHistory.push('/board/'+indx);
         // console.log(e.target);
+        this.props.history.push('/board?page=' + indx);
+        // this.router.transitionTo('/board/'+indx);
+    }
+
+    handleDetailPage = (indx) => {
+        // console.log(e.target.text);
+        // this.context.router.transitionTo('/board/'+indx);
+        // browserHistory.push('/board/'+indx);
+        // console.log(e.target);
         this.props.history.push('/board/'+ indx);
         // this.router.transitionTo('/board/'+indx);
+    }
+
+
+    handleWriteBoard = () => {
+        this.props.history.push('/board/write');
     }
 
 
@@ -102,10 +117,12 @@ class BoardContainer extends React.Component {
         this.state.isOk?(<Board 
                 boardList={this.state.boardList.data}
                 onClickPage={this.handleChangePage}
+                onClickDetail={this.handleDetailPage}
                 currentPage={this.state.currentPage}
+                onClickWrite={this.handleWriteBoard}
                 />):
-                <div>로딩중</div>
-        
+                <img style={{"width": "100%"}} src={loding} />
+    
         )
     }
 
