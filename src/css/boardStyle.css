@@ -14,6 +14,10 @@
     text-align: right;
 }
 
+#searchTarget {
+    width: 130px!important;
+}
+
 /* 매우 작은 기기들 (모바일폰, 768px 보다 작은) */
 /* 부트스트랩에서 이것은 기본이므로 미디어쿼리가 없습니다. */
 
@@ -23,9 +27,11 @@
 .table-board td:nth-child(2):hover{
     color:brown;
 }
-.table-board th, td:nth-child(1), td:nth-child(n+4) {
+.table-board th, td:nth-child(1), td:nth-child(n+3) {
     text-align: center;
 }
+
+
 
 @media only screen and (min-width: 1200px) {
 

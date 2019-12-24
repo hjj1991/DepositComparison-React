@@ -23,58 +23,31 @@ class BoardContainer extends React.Component {
         };
     }
 
-    // shouldComponentUpdate(nextProps, nextState){
-    //     console.log("shouldComponentUpdate: " + JSON.stringify(nextProps) + " " + JSON.stringify(nextState));
-    //     return true;
-    //}
-
-    componentDidUpdate(prevProps, prevState) {
-        // if(typeof this.props.page == "undefined"){
-        //     this.getPost(1,10);
-        // }
-        if (this.props.page !== prevProps.page){
-            this.getPost(this.props.page,10);
+    componentDidUpdate(prevProps, prevState) {                  //props 변화에 따라 기존 컴포넌트의 업데이트 진행 함수
+        if (this.props.page !== prevProps.page || this.props.searchTarget !== prevProps.searchTarget || this.props.searchKeyword !== prevProps.searchKeyword){
+            this.getPost(this.props.page,10, this.props.searchTarget, this.props.searchKeyword);
         }
-        // console.log(this.props.page);
       }
 
     componentDidMount() {
-        console.log("마운트");
-        console.log(this.props);
         if(typeof this.props.page == "undefined"){
             this.getPost(1, 10);
         }else{
-            this.getPost(this.props.page, 10);
+            this.getPost(this.props.page, 10, this.props.searchTarget, this.props.searchKeyword);
         }
-        // setTimeout(() => {
-        //     this.setState({ isOk: true});
-        // }, 600);   
       }
-    //   static getDerivedStateFromProps(nextProps, prevState) {
-    //     console.log("드리븐");
-    //     console.log(prevState.boardList);
-    //     console.log(nextProps);
-    //     console.log(JSON.parse(window.history.state.data));
-    //     if (prevState.currentPage !== nextProps.page) {
-            
-    //       return { 
-    //           boardList: JSON.parse(window.history.state.data),
-    //         //   currentPage: nextProps.page,
-    //         //   pageSize: nextProps.pageSize
-    //         };
-    //     }
-        
-    //     return true;
-    // }
 
-    getPost = async (page, pageSize) => {
+
+    getPost = async (page, pageSize, searchTarget, searchKeyword) => {
         try {
-            const post = await service.getBoardList(page, pageSize);
+            const post = await service.getBoardList(page, pageSize, searchTarget, searchKeyword);
             // console.log(post);
             this.setState({
                 boardList: post,
                 isOk: true,
-                currentPage: page
+                currentPage: page,
+                searchTarget: searchTarget,
+                searchKeyword: searchKeyword
             });
             
             
@@ -85,41 +58,63 @@ class BoardContainer extends React.Component {
 
 
 
-    handleChangePage = (indx) => {
-        // console.log(e.target.text);
-        // this.context.router.transitionTo('/board/'+indx);
-        // browserHistory.push('/board/'+indx);
-        // console.log(e.target);
-        this.props.history.push('/board?page=' + indx);
-        // this.router.transitionTo('/board/'+indx);
+    handleChangePage = (indx, searchTarget, searchKeyword) => {
+        if(typeof searchKeyword !== "undefined"){
+            this.props.history.push('/board?page=' + indx + '&searchTarget=' + searchTarget + '&searchKeyword=' + searchKeyword);
+        }else{
+            this.props.history.push('/board?page=' + indx);
+        }
     }
 
     handleDetailPage = (indx) => {
-        // console.log(e.target.text);
-        // this.context.router.transitionTo('/board/'+indx);
-        // browserHistory.push('/board/'+indx);
-        // console.log(e.target);
         this.props.history.push('/board/'+ indx);
-        // this.router.transitionTo('/board/'+indx);
     }
 
+    handleSearch = (e) => {
+        e.preventDefault();
+        console.log(e.target.searchTarget.value);
+        console.log(e.target.searchKeyword.value);
+        if(e.target.searchKeyword.value.replace(/(\s*)/g, "").length < 2){
+            alert("공백제외 두글자 이상 검색 가능합니다.");
+        }else{
+            this.props.history.push('/board?page=1&searchTarget=' + e.target.searchTarget.value + '&searchKeyword=' + e.target.searchKeyword.value);
+        }
+    }
+
+    handleSearchKeywordChange = (e) => {
+        this.setState({
+            searchKeyword: e.target.value
+        })
+    }
+
+    handleSearchTargetChage = (e) => {
+        this.setState({
+            searchTarget: e.target.value
+        })
+    }
+    
 
     handleWriteBoard = () => {
         this.props.history.push('/board/write');
     }
 
+    
+
 
 
     render(){
-        // this.getPost(this.props.page, this.props.pageSize);
-        // var boardList = getPost(1, 20);
         return(
         this.state.isOk?(<Board 
                 boardList={this.state.boardList.data}
                 onClickPage={this.handleChangePage}
                 onClickDetail={this.handleDetailPage}
-                currentPage={this.state.currentPage}
                 onClickWrite={this.handleWriteBoard}
+                onClickSearch={this.handleSearch}
+                onChangeSearchTarget={this.handleSearchTargetChage}
+                onChageSearchKeyword={this.handleSearchKeywordChange}
+                currentPage={this.state.currentPage}
+                searchTarget={this.state.searchTarget}
+                searchKeyword={this.state.searchKeyword}
                 />):
                 <img style={{"width": "100%"}} src={loding} />
     

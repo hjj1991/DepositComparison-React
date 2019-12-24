@@ -24,7 +24,7 @@ const BoardDetail = ({ boardDetail}) => {
                     <Col className="board-title-right col-9">{boardDetail.createdDatetime} | hit:{boardDetail.hitCnt}</Col>
             </Row>
             <Row>
-                <Col className="boardContents">{boardDetail.contents}</Col>
+                <Col className="boardContents" dangerouslySetInnerHTML={{__html: boardDetail.contents}}></Col>
             </Row>
     </Container>
     

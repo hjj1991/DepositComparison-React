@@ -1,5 +1,5 @@
 import React from 'react';
-import {Container, Row, Col, Table, Button} from 'react-bootstrap'
+import {Container, Row, Col, Table, Button, Form} from 'react-bootstrap'
 import ButtonGroup from 'react-bootstrap/ButtonGroup'
 import Pagination from 'react-bootstrap/Pagination'
 import { Link } from 'react-router-dom';
@@ -7,9 +7,11 @@ import { Link } from 'react-router-dom';
 
 
 
-const Board = ({ boardList, onClickPage, onClickDetail, currentPage, onClickWrite}) => {
+const Board = ({ boardList, onClickPage, onClickDetail, onClickSearch, onClickWrite, onChangeSearchTarget, onChageSearchKeyword, currentPage, searchTarget, searchKeyword}) => {
     var firstPage; //첫페이지
     var lastPage; //마지막페이지
+    console.log("여기");
+    console.log(boardList);
     if(currentPage > 5){
         firstPage = currentPage - 4;
         lastPage = currentPage + 4;
@@ -19,8 +21,12 @@ const Board = ({ boardList, onClickPage, onClickDetail, currentPage, onClickWrit
     }else{
         firstPage = 1;
         lastPage = 9;
-        if(lastPage > boardList.PageCount){
-            lastPage = boardList.pageCount;
+        if(lastPage > boardList.pageCount){
+            if(boardList.pageCount == 0){
+                lastPage = 1;
+            }else{
+                lastPage = boardList.pageCount;
+            }
         }
     }
 
@@ -29,7 +35,6 @@ const Board = ({ boardList, onClickPage, onClickDetail, currentPage, onClickWrit
         pageList.push(firstPage);
     }  
     const boardItem = boardList.results.map((item, index) => {
-
         return(
             
                 <tr id={index}>
@@ -55,7 +60,12 @@ const Board = ({ boardList, onClickPage, onClickDetail, currentPage, onClickWrit
             }else{
                 prevNum = Number(currentPage) - 9
             }
-            return <li className="page-item"><Link className="page-link" to={'/board?page=' + prevNum}>‹</Link></li>
+            console.log(searchKeyword);
+            if(searchKeyword ==="" || typeof searchKeyword ==="undefined"){
+                return <li className="page-item"><Link className="page-link" to={'/board?page=' + prevNum }>‹</Link></li>
+            }else{
+                return <li className="page-item"><Link className="page-link" to={'/board?page=' + prevNum + '&searchTarget=' + searchTarget + '&searchKeyword=' + searchKeyword}>‹</Link></li>
+            }
         }
     }
     const NextPage = () => {
@@ -66,9 +76,11 @@ const Board = ({ boardList, onClickPage, onClickDetail, currentPage, onClickWrit
             }else{
                 nextNum = Number(currentPage) + 9;
             }
-            // console.log("맞잖아");
-            // return <Pagination.Next onClick={onClickPage} />
-            return <li className="page-item"><Link className="page-link" to={'/board?page=' + nextNum}>›</Link></li>
+            if(searchKeyword ==="" || typeof searchKeyword ==="undefined"){
+                return <li className="page-item"><Link className="page-link" to={'/board?page=' + nextNum}>›</Link></li>
+            }else{
+                return <li className="page-item"><Link className="page-link" to={'/board?page=' + nextNum + '&searchTarget=' + searchTarget + '&searchKeyword=' + searchKeyword}>›</Link></li>
+            }
             
         }else{
             return <Pagination.Next disabled />
@@ -88,7 +100,7 @@ const Board = ({ boardList, onClickPage, onClickDetail, currentPage, onClickWrit
             return(
                 // <Pagination.Item onClick={onClickPage}>{item}</Pagination.Item>
                 // <li id={index} className="btn btn-secondary"><Link className="page-link" to={'/board?page=' + item}>{item}</Link></li>
-                <Button  variant="secondary" onClick={() => {onClickPage(item)}}>{item}</Button>
+                <Button  variant="secondary" onClick={() => {onClickPage(item, searchTarget, searchKeyword)}}>{item}</Button>
                 // <Pagination.Item></Pagination.Item>
                     //<Pagination.Ellipsis />
                     
@@ -105,6 +117,7 @@ const Board = ({ boardList, onClickPage, onClickDetail, currentPage, onClickWrit
     });
 
     return (
+        
         <Container>
             <Row id="title">
                 <Col>
@@ -126,9 +139,33 @@ const Board = ({ boardList, onClickPage, onClickDetail, currentPage, onClickWrit
                     {boardItem}
                 </tbody>
             </Table>
+            <Row>
+                <Col  className="boarder-bottom-toolbox-right"><Button variant="outline-secondary" onClick={onClickWrite}>글쓰기</Button></Col>
+            </Row>
             <Row className="boarder-bottom-toolbox">
-                <Col className="boarder-bottom-toolbox-left col-6"></Col>
-                <Col className="boarder-bottom-toolbox-right col-6"><Button variant="outline-secondary" onClick={onClickWrite}>글쓰기</Button></Col>
+                <Col md={3} className="boarder-bottom-toolbox-left"></Col>
+                <Col md={6} className="boarder-bottom-toolbox-left">
+                    <Form onSubmit={onClickSearch}>
+                        <Row>
+                            <Col>
+                                <div className="input-group">
+                                    <Form.Group controlId="searchTarget">
+                                        <Form.Control as="select" value={searchTarget} onChange={onChangeSearchTarget}>
+                                            <option value="titleOrContents">제목+내용</option>
+                                            <option value="title">제목</option>
+                                            <option value="contents">내용</option>
+                                            <option value="creatorId">작성자</option>
+                                        </Form.Control>
+                                    </Form.Group>
+                                    <input type="text" id="searchKeyword" className="form-control" placeholder="Search for" value={searchKeyword} onChange={onChageSearchKeyword} />
+                                    <span className="input-group-btn">
+                                        <button className="btn btn-secondary" type="submit">검색</button>
+                                    </span>
+                                </div>
+                            </Col>
+                        </Row>
+                    </Form>
+                </Col>
             </Row>
             <Pagination>
                 <ButtonGroup className="mr-2" aria-label="First group">

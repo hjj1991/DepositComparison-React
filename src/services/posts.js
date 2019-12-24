@@ -13,9 +13,14 @@ export function getCheckId(id) {
     });
 }
 
-export function getBoardList(page, pageSize){
+export function getBoardList(page, pageSize, searchTarget, searchKeyword){
     return axios.get(siteUrl + '/api/board', {
-        params: {page: page, pageSize: pageSize}
+        params: {
+            page: page, 
+            pageSize: pageSize, 
+            searchTarget: searchTarget,
+            searchKeyword: searchKeyword
+        }
     });
 }
 export function getBoardDetail(indx){
@@ -30,5 +35,12 @@ export function postSignUp(data){
         nickName: data.userNickName,
         emailAddr: data.userEmail
     
+    });
+}
+
+export function postBoardInsert(data){
+    return axios.post(siteUrl + '/api/board/write',{
+        title: data.title,
+        contents: data.contents
     });
 }

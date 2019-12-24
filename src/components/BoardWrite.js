@@ -1,54 +1,75 @@
 import React from 'react';
-import {Container, Row, Col, Table} from 'react-bootstrap'
+import {Container, Row, Col, Button, Form} from 'react-bootstrap'
+import Modal from '../components/Modal/Modal';
 import Pagination from 'react-bootstrap/Pagination'
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import 'css/boardStyle.css'
 import 'tui-editor/dist/tui-editor.min.css';
 import 'tui-editor/dist/tui-editor-contents.min.css';
 import { Editor } from '@toast-ui/react-editor'
+import 'css/boardStyle.css';
 
 
 
 
-const BoardWrite = ({ toastEditor}) => {
-    var editorRef = React.createRef();
-
+const BoardWrite = ({ writeBoard, isOk}) => {
+    
+    let editorRef = React.createRef();
+    
 
     return (
-        <Container>
-            <Row id="title">
-                <Col>
-                    <h1 onClick={(e) => console.log(editorRef.current.getInstance().getHtml())}>게시판</h1>
-                </Col>
-            </Row>
-            <Row>
-                <Col>
-                    <Editor
-                        initialValue="hello react editor world!"
-                        previewStyle="vertical"
-                        height="600px"
-                        initialEditType="markdown"
-                        useCommandShortcut={false}
-                        ref={editorRef}
-                        exts={[
-                            {
-                            name: 'chart',
-                            minWidth: 100,
-                            maxWidth: 600,
-                            minHeight: 100,
-                            maxHeight: 300
-                            },
-                            'scrollSync',
-                            'colorSyntax',
-                            'uml',
-                            'mark',
-                            'table'
-                        ]}
-                        />
-                </Col>
-            </Row>
-    </Container>
-    
+        isOk?(
+            <Modal isOpen={isOk} />
+        ):(
+            <Container>
+                <Row id="title">
+                    <Col>
+                        <h1 onClick={(e) => console.log(editorRef.current.getInstance().getHtml())}>게시판</h1>
+                    </Col>
+                </Row>
+                <Form onSubmit={(e) =>{writeBoard(e, editorRef.current.getInstance().getHtml())} }>
+                {/* <Form onSubmit={writeBoard}> */}
+                    <Row>
+                        <Col>
+                            <Form.Group  controlId="boardTitle">
+                                <Form.Control placeholder="제목을 입력해주세요." />
+                            </Form.Group>
+                        </Col>
+                        </Row>
+                    <Row>
+                        <Col>
+                            <Editor
+                                initialValue="hello react editor world!"
+                                previewStyle="vertical"
+                                height="600px"
+                                initialEditType="wysiwyg"
+                                useCommandShortcut={false}
+                                ref={editorRef}
+                                exts={[
+                                    {
+                                    name: 'chart',
+                                    minWidth: 100,
+                                    maxWidth: 600,
+                                    minHeight: 100,
+                                    maxHeight: 300
+                                    },
+                                    'scrollSync',
+                                    'colorSyntax',
+                                    'uml',
+                                    'mark',
+                                    'table'
+                                ]}
+                                />
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col>
+                            <Button type="submit" variant="outline-secondary" size="lg" block>등록</Button>            
+                        </Col>
+                    </Row>
+                </Form>
+        </Container>
+    )
     );
 };
 
