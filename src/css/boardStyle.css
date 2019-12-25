@@ -16,6 +16,14 @@
 
 #searchTarget {
     width: 130px!important;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px; 
+}
+
+#searchButton {
+    margin-left: -1px;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px; 
 }
 
 /* 매우 작은 기기들 (모바일폰, 768px 보다 작은) */

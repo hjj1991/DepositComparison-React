@@ -3,6 +3,7 @@ import {Container, Row, Col, Table, Button, Form} from 'react-bootstrap'
 import ButtonGroup from 'react-bootstrap/ButtonGroup'
 import Pagination from 'react-bootstrap/Pagination'
 import { Link } from 'react-router-dom';
+import 'css/boardStyle.css'
 
 
 
@@ -159,7 +160,7 @@ const Board = ({ boardList, onClickPage, onClickDetail, onClickSearch, onClickWr
                                     </Form.Group>
                                     <input type="text" id="searchKeyword" className="form-control" placeholder="Search for" value={searchKeyword} onChange={onChageSearchKeyword} />
                                     <span className="input-group-btn">
-                                        <button className="btn btn-secondary" type="submit">검색</button>
+                                        <button className="btn btn-secondary" id="searchButton"  type="submit">검색</button>
                                     </span>
                                 </div>
                             </Col>
