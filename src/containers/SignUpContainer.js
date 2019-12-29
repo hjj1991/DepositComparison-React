@@ -39,9 +39,9 @@ class SignUpContainer extends React.Component {
         });
         try {
             const post = await service.getCheckId(userId)
-            //console.log(post);
+            console.log(post);
 
-            if(post.data === 1){
+            if(post.data.data === true){
                 this.setState({
                     idCheckMessage : "이미 사용중이거나 탈퇴한 아이디입니다.",
                     idFontColor: "red",
@@ -61,11 +61,15 @@ class SignUpContainer extends React.Component {
 
     postSignUp = async (data) => {
         try {
-            await service.postSignUp(data);
-            this.setState({
-                isOk: true
-            })
-            
+            const post = await service.postSignUp(data);
+
+            if(post.data.success === true){
+                this.setState({
+                    isOk: true
+                })
+            }else{
+                alert("다시하세요");
+            }
          } catch(e) {
              console.log('에러가 발생!');
              alert("다시하세요");

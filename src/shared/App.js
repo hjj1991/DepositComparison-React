@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { Home, SignUp, Board, BoardDetail, BoardWrite } from 'pages';
+import { Home, SignUp, SignIn, Board, BoardDetail, BoardWrite } from 'pages';
 import Menu from 'components/Menu';
 import 'css/style.css'
 
@@ -16,6 +16,7 @@ class App extends Component {
                     <Route path="/board/:name" component={BoardDetail} />
                     <Route path="/board" component={Board} />
                 </Switch>
+                <Route exact path="/signin" component={SignIn} />
                 
                 {/* <Route exact path="/DashBoard" component={DashBoard}/>
                 <Route exact path="/workloads" component={Workloads}/> */}

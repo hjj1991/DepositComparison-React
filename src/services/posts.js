@@ -3,14 +3,7 @@ import axios from 'axios';
 var siteUrl = "http://localhost:8080";
 
 export function getCheckId(id) {
-    return axios.get(siteUrl + `/api/member/checkId`, {
-        params: {userId: id}
-
-    // headers: {
-    //     "Content-Type" : "application/vnd.netiq.platespin.protect.WorkloadsDetails+json",
-    //     "Accept" : "application/json",}
-        
-    });
+    return axios.get(siteUrl + `/v1/user/checkid/` + id);
 }
 
 export function getBoardList(page, pageSize, searchTarget, searchKeyword){
@@ -28,13 +21,20 @@ export function getBoardDetail(indx){
 }
 
 export function postSignUp(data){
-    return axios.put(siteUrl + '/api/member/signup', {
+    return axios.put(siteUrl + '/v1/signup', {
         userId: data.userId,
-        userPw: data.userPw,
+        password: data.userPw,
         name: data.userName,
         nickName: data.userNickName,
         emailAddr: data.userEmail
     
+    });
+}
+
+export function postSignIn(data){
+    return axios.post(siteUrl + '/v1/signin',{
+        userId: data.userId,
+        password: data.userPw
     });
 }
 
@@ -44,3 +44,4 @@ export function postBoardInsert(data){
         contents: data.contents
     });
 }
+

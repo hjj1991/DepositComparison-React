@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
 import { NavLink } from 'react-router-dom';
-import Modal from 'react-bootstrap/Modal';
+import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import SignInContainer from 'containers/SignInContainer';
 // import {render} from 'react-dom';
 // import logo from '../logo.png' //실제 로고파일 경로
 
@@ -11,10 +12,15 @@ import Button from 'react-bootstrap/Button';
 
 const Menu = () => {
 
-    const [show, setShow] = useState(false);
+    const [loginShow, setloginShow] = useState(false);
   
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    
+    useEffect(() => {
+        setloginShow(true);
+      }, []);
+    const handleOpen = () => setloginShow(true);
+        
+
 
     // const array = ['dog', 'cat', 'sheep'];
 // const [first, second] = array;
@@ -22,20 +28,6 @@ const Menu = () => {
 
     return (
         <section>
-            <Modal show={show} onHide={handleClose}>
-            <Modal.Header closeButton>
-                <Modal.Title>Modal heading</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
-            <Modal.Footer>
-                <Button variant="secondary" onClick={handleClose}>
-                Close
-                </Button>
-                <Button variant="primary" onClick={handleClose}>
-                Save Changes
-                </Button>
-            </Modal.Footer>
-            </Modal>
             <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
             <NavLink className="navbar-brand" to="/"><img alt="" width="30"  className="d-inline-block align-top"/>{' HOME'}</NavLink>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -52,7 +44,8 @@ const Menu = () => {
                 </NavDropdown> */}
                 </Nav>
                 <Nav>
-            <Nav.Link onClick={handleShow}>Login</Nav.Link>
+                <NavLink className="nav-link" to="/signin">Login</NavLink>
+            {/* <Nav.Link onClick={handleOpen}>Login</Nav.Link> */}
                 <Nav.Link eventKey={2} href="#memes">
                     Dank memes
                 </Nav.Link>
