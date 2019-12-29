@@ -6,7 +6,7 @@ import './SignUp.css'
 
 
 
-const SighIn = ({ }) => {
+const SighIn = ({ onClickSubmit }) => {
 
 
     return (
@@ -16,7 +16,7 @@ const SighIn = ({ }) => {
                     <h1>로그인</h1>
                 </Col>
             </Row>
-            <Form onSubmit="">
+            <Form onSubmit={onClickSubmit}>
                 <Form.Group controlId="userId"  >
                     <Form.Label>아이디</Form.Label>
                     <Form.Control type="text" placeholder="아이디를 입력하세요" />
@@ -25,6 +25,9 @@ const SighIn = ({ }) => {
                     <Form.Label>비밀번호</Form.Label>
                     <Form.Control type="password" placeholder="비밀번호를 입력하세요."/>
                 </Form.Group>
+                <Button variant="outline-secondary" type="submit" size="lg" block>
+                    로그인
+                </Button>
             </Form>
         </Container>
 )
