@@ -20,12 +20,6 @@ export function getBoardDetail(indx){
     return axios.get(siteUrl + '/api/board/' + indx);
 }
 
-export function getUserDetail(token, userId){
-    return axios.get(siteUrl + '/v1/user/' + userId,{
-        headers: { "X-AUTH-TOKEN": token}
-        });
-}
-
 export function postSignUp(data){
     return axios.put(siteUrl + '/v1/signup', {
         userId: data.userId,

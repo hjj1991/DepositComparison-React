@@ -20,24 +20,12 @@ export const postLogin = (postData) => dispatch => {
             console.log(response.data.success);
             if(response.data.success === true){
                 console.log("하하");
-                const token = response.data.data;
-                service.getUserDetail(token, postData.userId).then(
-                    (response2) => {
                     // 요청이 성공했을경우, 서버 응답내용을 payload 로 설정하여 GET_POST_SUCCESS 액션을 디스패치합니다.
                     dispatch({
                         type: GET_POST_SUCCESS,
-                        payload: response2
-
-                })}    
-                ).catch(error => {
-                    // 에러가 발생했을 경우, 에로 내용을 payload 로 설정하여 GET_POST_FAILURE 액션을 디스패치합니다.
-                    dispatch({
-                        type: GET_POST_FAILURE,
-                        payload: error
-                    })
-                    }
-                )
-            }
+                        payload: response.data.data
+            })
+        }
         }
     ).catch(error => {
         // 에러가 발생했을 경우, 에로 내용을 payload 로 설정하여 GET_POST_FAILURE 액션을 디스패치합니다.
