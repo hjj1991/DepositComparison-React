@@ -3,7 +3,7 @@ import 'react-app-polyfill/stable';
 import React from 'react';
 import ReactDOM from 'react-dom';
 // **** (1) createStore 와 루트 리듀서 불러오기
-import { createStore, applyMiddleware  } from 'redux';
+import { createStore, applyMiddleware, compose   } from 'redux';
 import rootReducer from './store/modules';
 // **** (1) Provider 불러오기
 import { Provider } from 'react-redux';
@@ -16,11 +16,20 @@ import * as serviceWorker from './serviceWorker';
 
 // **** 리덕스 개발자도구 적용
 // const devTools =
-//   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__();
+//   window.__REDUXDEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__();
+
+const composeEnhancers =
+  typeof window === 'object' &&
+  window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?   
+    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
+      // Specify extension’s options like name, actionsBlacklist, actionsCreators, serialize...
+    }) : compose;
 
 const logger = createLogger();
 
-const store = createStore(rootReducer, applyMiddleware(logger, ReduxThunk));
+const store = createStore(rootReducer,  composeEnhancers(applyMiddleware(logger, ReduxThunk)));
+
+// const store = createStore(rootReducer,  applyMiddleware(logger, ReduxThunk));
 
 // **** (2) Provider 렌더링해서 기존의 App 감싸주기
 ReactDOM.render(
