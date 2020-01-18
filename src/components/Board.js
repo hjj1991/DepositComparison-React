@@ -11,9 +11,9 @@ import 'css/boardStyle.css'
 const Board = ({ boardList, onClickPage, onClickDetail, onClickSearch, onClickWrite, onChangeSearchTarget, onChageSearchKeyword, currentPage, searchTarget, searchKeyword}) => {
     var firstPage; //첫페이지
     var lastPage; //마지막페이지
-    console.log("여기");
-    console.log(boardList);
-    if(currentPage > 5){
+    // console.log("여기");
+    // console.log(boardList);
+    if(currentPage > 5){        //현재페이지 기준으로 +,- 4페이지를 보여주기 위함
         firstPage = currentPage - 4;
         lastPage = currentPage + 4;
         if(lastPage > boardList.pageCount){

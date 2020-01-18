@@ -13,6 +13,14 @@ import SignInContainer from 'containers/SignInContainer';
 const Menu = () => {
 
     const [loginShow, setloginShow] = useState(false);
+
+    // var a = new Date();
+    // var b = a.getTime(); // 1515992172285
+    // var c = new Date(1579330476298);
+    // b == c.getTime(); // true
+
+
+    // console.log(new Date(1579330476298))
   
     
     useEffect(() => {

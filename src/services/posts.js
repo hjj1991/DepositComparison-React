@@ -1,6 +1,9 @@
 import axios from 'axios';
+import userLogin from '../store/modules/userLogin';
+import { useDispatch  } from 'react-redux'
 
 var siteUrl = "http://localhost:8080";
+
 
 export function getCheckId(id) {
     return axios.get(siteUrl + `/v1/user/checkid/` + id);
@@ -38,10 +41,25 @@ export function postSignIn(data){
     });
 }
 
-export function postBoardInsert(data){
-    return axios.post(siteUrl + '/api/board/write',{
-        title: data.title,
-        contents: data.contents
+export function postTokenReissue(data){
+    return axios.post(siteUrl + '/v1/tokenreissue',{
+        refreshToken: data
+    });
+}
+
+export function postBoardInsert(data, token){
+    console.log(token);
+    return axios(
+    {
+        url:siteUrl + '/api/board/write',
+        method: 'post',
+        headers: {
+            "X_AUTH_TOKEN": token
+        },
+        data:{
+            title: data.title,
+            contents: data.contents
+        }
     });
 }
 

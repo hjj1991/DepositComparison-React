@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import {bindActionCreators} from 'redux';
 import { connect } from 'react-redux';
 import storage from 'lib/storage';
@@ -9,6 +10,8 @@ import Menu from 'components/Menu';
 import 'css/style.css'
 
 class App extends Component {
+
+
 
     initializeUserInfo = async () => {
         const loggedInfo = storage.get('userLogin'); // 로그인 정보를 로컬스토리지에서 가져옵니다.
@@ -22,8 +25,9 @@ class App extends Component {
         //     storage.remove('loggedInfo');
         //     window.location.href = '/auth/login?expired';
         // }
-    }
 
+    }
+    
     componentDidMount() {
         this.initializeUserInfo();
     }
@@ -51,8 +55,15 @@ class App extends Component {
     }
 }
 
+
+
+let mapStateToProps = (state) => {
+    return {
+        userInfo: state.userLogin.data
+    };
+}
 export default connect(
-    null,
+    (mapStateToProps),
     (dispatch) => ({
         LoginOkActions: bindActionCreators(loginOkActions, dispatch)
     })
