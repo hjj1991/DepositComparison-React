@@ -1,7 +1,11 @@
 import React from 'react';
+import {bindActionCreators} from 'redux';
+import { connect } from 'react-redux';
 import BoardDetail from 'components/BoardDetail';
+import BoardModify from 'components/BoardModify';
 import * as service from 'services/posts'
 import loding from 'images/loading.gif';
+import * as userInfoActions from 'store/modules/userLogin';
 
 // import { bindActionCreators } from 'redux';
 // import { connect } from 'react-redux';
@@ -17,6 +21,7 @@ class BoardDetailContainer extends React.Component {
         this.state = {
             pending: false,
             isOk: false,
+            writeFlag: true
         };
     }
 
@@ -39,21 +44,57 @@ class BoardDetailContainer extends React.Component {
         }
     };
 
+    handleModifyBoard = (e, contents) =>{   //글 수정버튼 이벤트
+        e.preventDefault(); 
+        
+        console.log("할롱");
+        this.setState({
+            writeFlag: false
+        });
+        console.log(this.state.writeFlag);
+        
+    }
+
 
 
     render(){
         // this.getPost(this.props.page, this.props.pageSize);
         // var boardList = getPost(1, 20);
-        return(
-        this.state.isOk?(<BoardDetail 
-                boardDetail={this.state.boardDetail.data}
-                onClickPage={this.handleChangePage}
-                />):
-                <img style={{"width": "100%"}} src={loding} />
-        
-        )
+        console.log(this.state.writeFlag1);
+        if(this.state.writeFlag){
+            return(
+                this.state.isOk?(<BoardDetail 
+                        boardDetail={this.state.boardDetail.data}
+                        onClickPage={this.handleChangePage}
+                        onClickModify={this.handleModifyBoard}
+                        />):
+                        <img style={{"width": "100%"}} src={loding} />
+                
+                )
+
+
+        }else{
+            return(
+                <BoardModify
+                    boardDetail={this.state.boardDetail.data} 
+                />
+            )
+        }
     }
 
 }
+let mapStateToProps = (state) => {
+    return {
+        userInfo: state.userLogin.data
+    };
+}
+const mapDispatchToProps = dispatch => ({
+    UserInfoActions: bindActionCreators(userInfoActions, dispatch),
+    // AnotherActions: bindActionCreators(anotherActions, dispatch)
+  });
 
-export default BoardDetailContainer;
+
+export default connect(
+    mapStateToProps,     
+    mapDispatchToProps
+) (BoardDetailContainer);

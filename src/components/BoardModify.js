@@ -12,7 +12,7 @@ import 'css/boardStyle.css';
 
 
 
-const BoardWrite = ({ writeBoard, isOk}) => {
+const BoardModify = ({ boardDetail, isOk}) => {
     
     let editorRef = React.createRef();
     
@@ -27,19 +27,19 @@ const BoardWrite = ({ writeBoard, isOk}) => {
                         <h1>게시판</h1>
                     </Col>
                 </Row>
-                <Form onSubmit={(e) =>{writeBoard(e, editorRef.current.getInstance().getHtml())} }>
+                <Form>
                 {/* <Form onSubmit={writeBoard}> */}
                     <Row>
                         <Col>
-                            <Form.Group  controlId="boardTitle">
-                                <Form.Control placeholder="제목을 입력해주세요." />
+                            <Form.Group  controlId="boardTitle" >
+                                <Form.Control placeholder="제목을 입력해주세요." value={boardDetail.title} />
                             </Form.Group>
                         </Col>
                         </Row>
                     <Row>
                         <Col>
                             <Editor
-                                initialValue="hello react editor world!"
+                                initialValue={boardDetail.contents}
                                 previewStyle="vertical"
                                 height="600px"
                                 initialEditType="wysiwyg"
@@ -73,4 +73,4 @@ const BoardWrite = ({ writeBoard, isOk}) => {
     );
 };
 
-export default BoardWrite;
+export default BoardModify;

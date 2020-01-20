@@ -14,7 +14,7 @@ import * as userInfoActions from 'store/modules/userLogin';
 
 
 
-class BoardWriteContainer extends React.Component {
+class BoardModifyContainer extends React.Component {
     constructor(){
         super();
         this.state = {
@@ -61,27 +61,13 @@ class BoardWriteContainer extends React.Component {
         }
     };
 
-    handleWriteBoard = (e, contents) =>{
-        e.preventDefault(); 
-        
-        // console.log(contents);
-        let data = {
-            "title": e.target.boardTitle.value,
-            "contents": contents,
-            "creatorId": this.props.userInfo.nickName
-        }
-        // console.log(this.props.userInfo.X_AUTH_TOKEN);
-        this.postBoardInsert(data);
-
-        // console.log(data);
-    }
 
     render(){
         // this.getPost(this.props.page, this.props.pageSize);
         // var boardList = getPost(1, 20);\
         
         return(
-        <BoardWrite 
+        <BoardModify
             writeBoard={this.handleWriteBoard}
             isOk={this.state.isOk}
         />
@@ -105,4 +91,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
     mapStateToProps,     
     mapDispatchToProps
-)(BoardWriteContainer);
+)(BoardModifyContainer);

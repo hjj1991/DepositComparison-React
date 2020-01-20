@@ -58,7 +58,8 @@ export function postBoardInsert(data, token){
         },
         data:{
             title: data.title,
-            contents: data.contents
+            contents: data.contents,
+            creatorId: data.creatorId
         }
     });
 }

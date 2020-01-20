@@ -1,13 +1,13 @@
 import React from 'react';
 import {Container, Row, Col, Table} from 'react-bootstrap'
-import Pagination from 'react-bootstrap/Pagination'
+import {Pagination, Button } from 'react-bootstrap'
 import { Link } from 'react-router-dom';
 import 'css/boardStyle.css'
 
 
 
 
-const BoardDetail = ({ boardDetail}) => {
+const BoardDetail = ({ boardDetail, onClickModify}) => {
 
     return (
         <Container>
@@ -25,6 +25,12 @@ const BoardDetail = ({ boardDetail}) => {
             </Row>
             <Row>
                 <Col className="boardContents" dangerouslySetInnerHTML={{__html: boardDetail.contents}}></Col>
+            </Row>
+            <Row>
+                <Col  className="boarder-bottom-toolbox-right">
+                    <Button variant="outline-secondary" onClick={onClickModify}>수정</Button>
+                    <Button variant="outline-secondary" >삭제</Button>
+                </Col>
             </Row>
     </Container>
     
