@@ -42,6 +42,7 @@ const BoardWrite = ({ writeBoard, isOk}) => {
                                 initialValue="hello react editor world!"
                                 previewStyle="vertical"
                                 height="600px"
+                                language="ko_KR"
                                 initialEditType="wysiwyg"
                                 useCommandShortcut={false}
                                 ref={editorRef}

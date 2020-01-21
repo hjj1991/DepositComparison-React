@@ -2,7 +2,7 @@ import React from 'react';
 import {bindActionCreators} from 'redux';
 import { connect } from 'react-redux';
 import BoardDetail from 'components/BoardDetail';
-import BoardModify from 'components/BoardModify';
+import BoardModifyContainer from 'containers/BoardModifyContainer';
 import * as service from 'services/posts'
 import loding from 'images/loading.gif';
 import * as userInfoActions from 'store/modules/userLogin';
@@ -75,7 +75,7 @@ class BoardDetailContainer extends React.Component {
 
         }else{
             return(
-                <BoardModify
+                <BoardModifyContainer
                     boardDetail={this.state.boardDetail.data} 
                 />
             )

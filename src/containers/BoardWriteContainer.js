@@ -37,9 +37,7 @@ class BoardWriteContainer extends React.Component {
             if(this.props.userInfo.exAuthToken < today.getTime()){ //액세스토큰 만료시간을 비교하여 만료되었으면 refresh토큰을 이용하여 갱신함
                 const result2 = await service.postTokenReissue(this.props.userInfo.X_REFRESH_TOKEN);
                 if(result2.data.code === "1"){
-                    console.log("안녕");
                     UserInfoActions.refreshAccessToken(result2.data.X_AUTH_TOKEN, result2.data.exAuthToken);
-                    console.log("안녕2");
                 }else{  //리프레쉬토큰도 만료되면 새로 로그인해야함
                 }
             }
@@ -67,8 +65,7 @@ class BoardWriteContainer extends React.Component {
         // console.log(contents);
         let data = {
             "title": e.target.boardTitle.value,
-            "contents": contents,
-            "creatorId": this.props.userInfo.nickName
+            "contents": contents
         }
         // console.log(this.props.userInfo.X_AUTH_TOKEN);
         this.postBoardInsert(data);

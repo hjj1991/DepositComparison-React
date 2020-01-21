@@ -72,8 +72,6 @@ class BoardContainer extends React.Component {
 
     handleSearch = (e) => {
         e.preventDefault();
-        console.log(e.target.searchTarget.value);
-        console.log(e.target.searchKeyword.value);
         if(e.target.searchKeyword.value.replace(/(\s*)/g, "").length < 2){
             alert("공백제외 두글자 이상 검색 가능합니다.");
         }else{

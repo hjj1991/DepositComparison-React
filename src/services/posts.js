@@ -58,8 +58,23 @@ export function postBoardInsert(data, token){
         },
         data:{
             title: data.title,
-            contents: data.contents,
-            creatorId: data.creatorId
+            contents: data.contents
+        }
+    });
+}
+
+export function postBoardModify(data, token){
+    console.log(token);
+    return axios(
+    {
+        url:siteUrl + '/api/board/',
+        method: 'put',
+        headers: {
+            "X_AUTH_TOKEN": token
+        },
+        data:{
+            title: data.title,
+            contents: data.contents
         }
     });
 }
