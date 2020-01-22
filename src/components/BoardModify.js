@@ -17,7 +17,7 @@ const BoardModify = ({ title, contents, onChangeTitleValue, submitModifyBoard, m
 
     return (
         isOk?(
-            <Modal isOpen={isOk} />
+            <Modal isOpen={isOk} contents="글이 수정되었습니다." />
         ):(
             mount?(         //수정할때 Contents 값이 마운트 되었는지 확인하여 마운트 되면 렌더링 한다.
                 <Container>
@@ -26,7 +26,7 @@ const BoardModify = ({ title, contents, onChangeTitleValue, submitModifyBoard, m
                             <h1>게시판</h1>
                         </Col>
                     </Row>
-                    <Form onSubmit={submitModifyBoard}>
+                    <Form onSubmit={(e) =>{submitModifyBoard(e, editorRef.current.getInstance().getHtml())}}>
                         <Row>
                             <Col>
                                 <Form.Group  controlId="boardTitle" >
@@ -82,7 +82,7 @@ const BoardModify = ({ title, contents, onChangeTitleValue, submitModifyBoard, m
                         </Row>
                         <Row>
                             <Col>
-                                <Button type="submit" variant="outline-secondary" size="lg" block>등록</Button>            
+                                <Button type="submit" variant="outline-secondary" size="lg" block>수정</Button>            
                             </Col>
                         </Row>
                     </Form>

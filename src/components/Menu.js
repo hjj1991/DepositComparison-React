@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector } from "react-redux";
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
 import { NavLink } from 'react-router-dom';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import SignInContainer from 'containers/SignInContainer';
+import 'css/style.css';
 // import {render} from 'react-dom';
 // import logo from '../logo.png' //실제 로고파일 경로
 
@@ -13,14 +15,25 @@ import SignInContainer from 'containers/SignInContainer';
 const Menu = () => {
 
     const [loginShow, setloginShow] = useState(false);
-
-    // var a = new Date();
-    // var b = a.getTime(); // 1515992172285
-    // var c = new Date(1579330476298);
-    // b == c.getTime(); // true
-
-
-    // console.log(new Date(1579330476298))
+    const userInfo = useSelector(state => state.userLogin.data); //리덕스 스토어의 로그인 유저 데이터 가져오기
+    console.log(userInfo);
+    function LoginCheck(){
+        console.log(typeof userInfo.nickName);
+        if(typeof userInfo.nickName == "undefined"){
+            return (
+                <React.Fragment>
+                    <NavLink className="nav-link" to="/signin">Login</NavLink>
+                    <NavLink className="nav-link" to="/signup" >SignUp</NavLink>
+                </React.Fragment>
+            )
+        }else{
+            return (
+                <React.Fragment>
+                    <div id="user-bar">환영합니다.{userInfo.nickName}님</div>
+                </React.Fragment>
+            )
+        }
+    }
   
     
     useEffect(() => {
@@ -41,7 +54,6 @@ const Menu = () => {
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav className="mr-auto">
-                <NavLink className="nav-link" to="/signup" >SignUp</NavLink>
                 <NavLink className="nav-link" to="/board" >Board</NavLink>
                 {/* <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
                     <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
@@ -52,11 +64,7 @@ const Menu = () => {
                 </NavDropdown> */}
                 </Nav>
                 <Nav>
-                <NavLink className="nav-link" to="/signin">Login</NavLink>
-            {/* <Nav.Link onClick={handleOpen}>Login</Nav.Link> */}
-                <Nav.Link eventKey={2} href="#memes">
-                    Dank memes
-                </Nav.Link>
+                    <LoginCheck />
                 </Nav>
             </Navbar.Collapse>
             </Navbar>

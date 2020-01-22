@@ -19,7 +19,7 @@ const BoardWrite = ({ writeBoard, isOk}) => {
 
     return (
         isOk?(
-            <Modal isOpen={isOk} />
+            <Modal isOpen={isOk} contents="글이 작성되었습니다." />
         ):(
             <Container>
                 <Row id="title">
@@ -28,7 +28,6 @@ const BoardWrite = ({ writeBoard, isOk}) => {
                     </Col>
                 </Row>
                 <Form onSubmit={(e) =>{writeBoard(e, editorRef.current.getInstance().getHtml())} }>
-                {/* <Form onSubmit={writeBoard}> */}
                     <Row>
                         <Col>
                             <Form.Group  controlId="boardTitle">

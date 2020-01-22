@@ -1,6 +1,8 @@
 import React from 'react';
 import {Container, Row, Col, Table} from 'react-bootstrap'
+import { useSelector } from "react-redux";
 import {Pagination, Button } from 'react-bootstrap'
+import * as userInfoActions from 'store/modules/userLogin';
 import { Link } from 'react-router-dom';
 import 'css/boardStyle.css'
 
@@ -8,6 +10,28 @@ import 'css/boardStyle.css'
 
 
 const BoardDetail = ({ boardDetail, onClickModify}) => {
+    const userInfo = useSelector(state => state.userLogin.data); //리덕스 스토어의 로그인 유저 데이터 가져오기
+    function WriterAuth(){
+        console.log(userInfo.nickName);
+        console.log(boardDetail.creatorId);
+        if(userInfo.nickName === boardDetail.creatorId){
+            return (
+                <React.Fragment>
+                    <Button variant="outline-secondary" onClick={onClickModify}>수정</Button>
+                    <Button variant="outline-secondary" >삭제</Button>
+                </React.Fragment>
+                );
+        }else{
+            return null;
+        }
+    }
+
+    // You can get the state of the store using useSelector 
+    
+    console.log(userInfo);
+
+
+
 
     return (
         <Container>
@@ -28,8 +52,7 @@ const BoardDetail = ({ boardDetail, onClickModify}) => {
             </Row>
             <Row>
                 <Col  className="boarder-bottom-toolbox-right">
-                    <Button variant="outline-secondary" onClick={onClickModify}>수정</Button>
-                    <Button variant="outline-secondary" >삭제</Button>
+                    <WriterAuth />
                 </Col>
             </Row>
     </Container>

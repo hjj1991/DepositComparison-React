@@ -48,7 +48,6 @@ export function postTokenReissue(data){
 }
 
 export function postBoardInsert(data, token){
-    console.log(token);
     return axios(
     {
         url:siteUrl + '/api/board/write',
@@ -57,6 +56,7 @@ export function postBoardInsert(data, token){
             "X_AUTH_TOKEN": token
         },
         data:{
+            boardType: "0",
             title: data.title,
             contents: data.contents
         }
@@ -64,15 +64,15 @@ export function postBoardInsert(data, token){
 }
 
 export function postBoardModify(data, token){
-    console.log(token);
     return axios(
     {
-        url:siteUrl + '/api/board/',
+        url:siteUrl + '/api/board/' + data.boardIdx,
         method: 'put',
         headers: {
             "X_AUTH_TOKEN": token
         },
         data:{
+            boardType: data.boardType,
             title: data.title,
             contents: data.contents
         }

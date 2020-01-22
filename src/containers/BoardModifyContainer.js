@@ -64,6 +64,8 @@ class BoardModifyContainer extends React.Component {
         e.preventDefault();
 
         let data = {
+            "boardIdx": this.props.boardDetail.boardIdx,
+            "boardType": this.props.boardDetail.boardType,
             "title": e.target.boardTitle.value,
             "contents": contents
         }
@@ -72,19 +74,6 @@ class BoardModifyContainer extends React.Component {
     }
 
 
-    handleWriteBoard = (e, contents) => {
-        e.preventDefault(); 
-        
-        // console.log(contents);
-        let data = {
-            "title": e.target.boardTitle.value,
-            "contents": contents
-        }
-        // console.log(this.props.userInfo.X_AUTH_TOKEN);
-        this.postBoardInsert(data);
-
-        // console.log(data);
-    }
 
     handleChangeTitleValue = (e, title) =>{   //글 수정버튼 이벤트
         e.preventDefault(); 
@@ -104,14 +93,14 @@ class BoardModifyContainer extends React.Component {
         console.log(this.props);
         
         return(
-        <BoardModify
-            title={this.state.title}
-            contents={this.state.contents}
-            onChangeTitleValue={this.handleChangeTitleValue}
-            submitModifyBoard={this.handleModifyBoard}
-            mount={this.state.mount}
-            isOk={this.state.isOk}
-        />
+                <BoardModify
+                    title={this.state.title}
+                    contents={this.state.contents}
+                    onChangeTitleValue={this.handleChangeTitleValue}
+                    submitModifyBoard={this.handleModifyBoard}
+                    mount={this.state.mount}
+                    isOk={this.state.isOk}
+                />
         )};
 
 

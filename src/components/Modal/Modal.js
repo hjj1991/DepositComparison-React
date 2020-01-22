@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './Modal.css';
 
-const Modal = ({ isOpen, isOk }) => {
+const Modal = ({ isOpen, contents, isOk }) => {
     //console.log(isOk);
     return (
         <React.Fragment>
@@ -14,7 +14,7 @@ const Modal = ({ isOpen, isOk }) => {
             <p className="title"></p>
             <div className="content">
                 <p>
-                글이 작성되었습니다.
+                {contents}
                 </p>
             </div>
             <div className="button-wrap">

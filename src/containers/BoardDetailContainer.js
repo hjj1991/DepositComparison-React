@@ -44,7 +44,7 @@ class BoardDetailContainer extends React.Component {
         }
     };
 
-    handleModifyBoard = (e, contents) =>{   //글 수정버튼 이벤트
+    handleModifyBoard = (e) =>{   //글 수정버튼 이벤트
         e.preventDefault(); 
         
         console.log("할롱");
@@ -60,7 +60,6 @@ class BoardDetailContainer extends React.Component {
     render(){
         // this.getPost(this.props.page, this.props.pageSize);
         // var boardList = getPost(1, 20);
-        console.log(this.state.writeFlag1);
         if(this.state.writeFlag){
             return(
                 this.state.isOk?(<BoardDetail 
