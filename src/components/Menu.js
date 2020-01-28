@@ -16,9 +16,7 @@ const Menu = () => {
 
     const [loginShow, setloginShow] = useState(false);
     const userInfo = useSelector(state => state.userLogin.data); //리덕스 스토어의 로그인 유저 데이터 가져오기
-    console.log(userInfo);
     function LoginCheck(){
-        console.log(typeof userInfo.nickName);
         if(typeof userInfo.nickName == "undefined"){
             return (
                 <React.Fragment>
@@ -29,7 +27,8 @@ const Menu = () => {
         }else{
             return (
                 <React.Fragment>
-                    <div id="user-bar">환영합니다.{userInfo.nickName}님</div>
+                    <Navbar.Text id="user-bar">환영합니다.{userInfo.nickName}님</Navbar.Text>
+                    <NavLink className="nav-link" to="/myinfo" >MyInfo</NavLink>
                 </React.Fragment>
             )
         }

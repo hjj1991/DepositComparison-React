@@ -3,9 +3,10 @@ import {bindActionCreators} from 'redux';
 import { connect } from 'react-redux';
 import BoardModify from 'components/BoardModify';
 import * as service from 'services/posts'
-import loding from 'images/loading.gif';
 import 'codemirror/lib/codemirror.css';
 import * as userInfoActions from 'store/modules/userLogin';
+import storage from 'lib/storage';
+import Modal from '../components/Modal/Modal';
 
 
 // import { bindActionCreators } from 'redux';
@@ -42,16 +43,30 @@ class BoardModifyContainer extends React.Component {
                 if(result2.data.code === "1"){
                     UserInfoActions.refreshAccessToken(result2.data.X_AUTH_TOKEN, result2.data.exAuthToken);
                 }else{  //리프레쉬토큰도 만료되면 새로 로그인해야함
+                    storage.remove('userLogin');
+                    UserInfoActions.deleteLoggedInfo();
+                    this.setState({
+                        isModalOpen: true
+                    })
                 }
             }
+            this.setState({
+                pending: true
+            })
             const result = await service.postBoardModify(data, this.props.userInfo.X_AUTH_TOKEN);
             
             if(result.status === 200){
                 if(result.data === "Success"){
                     this.setState({
-                        isOk: true
+                        isOk: true,
+                        pending: false
                     });
                 }else if(result.data.code === "999"){
+                    storage.remove('userLogin');
+                    UserInfoActions.deleteLoggedInfo();
+                    this.setState({
+                        isModalOpen: true
+                    })
                 }
             }
             
@@ -93,6 +108,9 @@ class BoardModifyContainer extends React.Component {
         console.log(this.props);
         
         return(
+            this.state.isModalOpen?(
+                <Modal isOpen="true" contents="로그인이 필요합니다." page="/signin"/>
+            ):(
                 <BoardModify
                     title={this.state.title}
                     contents={this.state.contents}
@@ -100,7 +118,9 @@ class BoardModifyContainer extends React.Component {
                     submitModifyBoard={this.handleModifyBoard}
                     mount={this.state.mount}
                     isOk={this.state.isOk}
+                    pending={this.state.pending}
                 />
+            )
         )};
 
 

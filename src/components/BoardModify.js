@@ -11,16 +11,18 @@ import 'css/boardStyle.css';
 
 
 
-const BoardModify = ({ title, contents, onChangeTitleValue, submitModifyBoard, mount, isOk}) => {
+const BoardModify = ({ title, contents, onChangeTitleValue, submitModifyBoard, mount, isOk, pending}) => {
     let editorRef = React.createRef();
 
-
-    return (
-        isOk?(
+    if(isOk == true && pending == false){
+        return(
             <Modal isOpen={isOk} contents="글이 수정되었습니다." />
-        ):(
-            mount?(         //수정할때 Contents 값이 마운트 되었는지 확인하여 마운트 되면 렌더링 한다.
-                <Container>
+        )
+    }else if(isOk == false && pending == true){
+        return <img style={{"width": "100%"}} src={loading} />
+    }else if(mount){//수정할때 Contents 값이 마운트 되었는지 확인하여 마운트 되면 렌더링 한다.
+        return(
+            <Container>
                     <Row id="title">
                         <Col>
                             <h1>게시판</h1>
@@ -86,11 +88,14 @@ const BoardModify = ({ title, contents, onChangeTitleValue, submitModifyBoard, m
                             </Col>
                         </Row>
                     </Form>
-            </Container>):(
-                <img style={{"width": "100%"}} src={loading} />
-            )
+            </Container>
         )
-    );
+    }else{
+        return <img style={{"width": "100%"}} src={loading} />
+    }
+
+        
+
 };
 
 export default BoardModify;

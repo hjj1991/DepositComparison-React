@@ -25,3 +25,10 @@ body {
 #user-bar {
     color: blanchedalmond;
 }
+
+.info-title {
+    text-align: right;
+}
+.info-footer {
+    text-align: center;
+}

@@ -9,6 +9,19 @@ export function getCheckId(id) {
     return axios.get(siteUrl + `/v1/user/checkid/` + id);
 }
 
+export function getUserDetail(token){
+    console.log(token);
+    return axios(
+        {
+            url:siteUrl + '/v1/user',
+            method: 'get',
+            headers: {
+                "X_AUTH_TOKEN": token
+            }
+        }
+    )
+}
+
 export function getBoardList(page, pageSize, searchTarget, searchKeyword){
     return axios.get(siteUrl + '/api/board', {
         params: {
@@ -39,6 +52,19 @@ export function postSignIn(data){
         userId: data.userId,
         password: data.userPw
     });
+}
+
+export function postSignOut(token){
+    return axios(
+        {
+            url:siteUrl + '/v1/signout',
+                method: 'post',
+                headers: {
+                    "X_REFRESH_TOKEN": token
+                },
+            
+        }
+    )
 }
 
 export function postTokenReissue(data){

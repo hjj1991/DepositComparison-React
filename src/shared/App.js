@@ -4,21 +4,36 @@ import {bindActionCreators} from 'redux';
 import { connect } from 'react-redux';
 import storage from 'lib/storage';
 import { Route, Switch } from 'react-router-dom';
-import { Home, SignUp, SignIn, Board, BoardDetail, BoardWrite } from 'pages';
+import { Home, SignUp, SignIn, Board, BoardDetail, BoardWrite, MyInfo } from 'pages';
 import * as loginOkActions from '../store/modules/userLogin';
+import loding from 'images/loading.gif';
 import Menu from 'components/Menu';
 import 'css/style.css'
 
 class App extends Component {
 
-
+    constructor(props) {
+        super(props);
+        this.state = {
+            loading: false
+        };
+    }
 
     initializeUserInfo = async () => {
         const loggedInfo = storage.get('userLogin'); // 로그인 정보를 로컬스토리지에서 가져옵니다.
-        if(!loggedInfo) return; // 로그인 정보가 없다면 여기서 멈춥니다.
+        if(!loggedInfo){// 로그인 정보가 없다면 여기서 멈춥니다.
+            this.setState({
+                loading: true
+            })
+        }else{
+            const { LoginOkActions } = this.props;
+            await LoginOkActions.setLoggedInfo(loggedInfo);
+            this.setState({
+                loading: true
+            })
+        }
 
-        const { LoginOkActions } = this.props;
-        LoginOkActions.setLoggedInfo(loggedInfo);
+
         // try {
         //     await UserActions.checkStatus();
         // } catch (e) {
@@ -33,6 +48,7 @@ class App extends Component {
     }
     render() {
         return (
+            this.state.loading?(
             <div>
                 <Menu/>
                 <Route exact path="/" component={Home}/>
@@ -43,7 +59,7 @@ class App extends Component {
                     <Route path="/board" component={Board} />
                 </Switch>
                 <Route exact path="/signin" component={SignIn} />
-                
+                <Route exact path="/myinfo" component={MyInfo} />
                 {/* <Route exact path="/DashBoard" component={DashBoard}/>
                 <Route exact path="/workloads" component={Workloads}/> */}
                 {/* <Switch>
@@ -51,6 +67,9 @@ class App extends Component {
                     <Route path="/about" component={About}/>
                 </Switch> */}
             </div>
+            ):(
+                <img style={{"width": "100%"}} src={loding} />
+            )
         );
     }
 }

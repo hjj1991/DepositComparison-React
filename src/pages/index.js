@@ -4,3 +4,4 @@ export { default as SignIn } from './SignIn';
 export { default as Board } from './Board';
 export { default as BoardDetail } from './BoardDetail';
 export { default as BoardWrite } from './BoardWrite';
+export { default as MyInfo } from './MyInfo';

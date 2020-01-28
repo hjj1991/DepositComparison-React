@@ -2,8 +2,15 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './Modal.css';
 
-const Modal = ({ isOpen, contents, isOk }) => {
+const Modal = ({ isOpen, contents, page }) => {
     //console.log(isOk);
+    var locationPage;
+    if(typeof page == "undefined"){
+        locationPage = "/board";
+    }else{
+        locationPage = page;
+    }
+
     return (
         <React.Fragment>
         {
@@ -18,7 +25,7 @@ const Modal = ({ isOpen, contents, isOk }) => {
                 </p>
             </div>
             <div className="button-wrap">
-                <Link to="/board"><button>확인</button></Link>
+                <Link to={locationPage}><button>확인</button></Link>
             </div>
             </div>
         </React.Fragment>
