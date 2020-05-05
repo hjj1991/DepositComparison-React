@@ -17,17 +17,17 @@ const Menu = () => {
     const [loginShow, setloginShow] = useState(false);
     const userInfo = useSelector(state => state.userLogin.data); //리덕스 스토어의 로그인 유저 데이터 가져오기
     function LoginCheck(){
-        if(typeof userInfo.nickName == "undefined"){
+        if(typeof userInfo.userId == "undefined"){
             return (
                 <React.Fragment>
                     <NavLink className="nav-link" to="/signin">Login</NavLink>
-                    <NavLink className="nav-link" to="/signup" >SignUp</NavLink>
+                    <NavLink className="nav-link" to="/signup">SignUp</NavLink>
                 </React.Fragment>
             )
         }else{
             return (
                 <React.Fragment>
-                    <Navbar.Text id="user-bar">환영합니다.{userInfo.nickName}님</Navbar.Text>
+                    <Navbar.Text id="user-bar">환영합니다.{userInfo.userId}님<img src={userInfo.picture} /></Navbar.Text>
                     <NavLink className="nav-link" to="/myinfo" >MyInfo</NavLink>
                 </React.Fragment>
             )
@@ -49,7 +49,7 @@ const Menu = () => {
     return (
         <section>
             <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-            <NavLink className="navbar-brand" to="/"><img alt="" width="30"  className="d-inline-block align-top"/>{' HOME'}</NavLink>
+            <NavLink className="navbar-brand" to="/"><img alt="" width="30"  className="d-inline-block align-top"/>{'HOME'}</NavLink>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav className="mr-auto">

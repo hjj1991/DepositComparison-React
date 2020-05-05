@@ -9,7 +9,6 @@ import loding from 'images/loading.gif';
 const MyInfo = ({userInfo, isLoading, onClickLogout}) => {
 
     return (
-        isLoading?(
         <Container>
             <Row id="title">
                 <Col>
@@ -33,20 +32,8 @@ const MyInfo = ({userInfo, isLoading, onClickLogout}) => {
                         </ListGroup.Item>
                         <ListGroup.Item>
                             <Row>
-                                <div className="col-3 info-title">닉네임</div>
-                                <div className="col-6 info-contents">{userInfo.nickName}</div>
-                            </Row>
-                        </ListGroup.Item>
-                        <ListGroup.Item>
-                            <Row>
                                 <div className="col-3 info-title">이메일주소</div>
-                                <div className="col-6 info-contents">{userInfo.emailAddr}</div>
-                            </Row>
-                        </ListGroup.Item>
-                        <ListGroup.Item>
-                            <Row>
-                                <div className="col-3 info-title">전화번호</div>
-                                <div className="col-6 info-contents">{userInfo.tel}</div>
+                                <div className="col-6 info-contents">{userInfo.email}</div>
                             </Row>
                         </ListGroup.Item>
                         <ListGroup.Item>
@@ -58,7 +45,7 @@ const MyInfo = ({userInfo, isLoading, onClickLogout}) => {
                         <ListGroup.Item>
                             <Row>
                                 <div className="col-3 info-title">최근로그인</div>
-                                <div className="col-6 info-contents">{userInfo.loginDate.replace("T", " ")}</div>
+                                <div className="col-6 info-contents">{userInfo.loginDateTime.replace("T", " ")}</div>
                             </Row>
                         </ListGroup.Item>
                         <ListGroup.Item></ListGroup.Item>
@@ -69,9 +56,6 @@ const MyInfo = ({userInfo, isLoading, onClickLogout}) => {
                 <Col><Button variant="outline-secondary" onClick={onClickLogout}>로그아웃</Button></Col>
             </Row>
         </Container>
-        ):(
-            <img style={{"width": "100%"}} src={loding} />
-        )
 )
 };
 

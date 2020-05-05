@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import * as loginOkActions from '../store/modules/userLogin';
 import loding from 'images/loading.gif';
 import storage from 'lib/storage';
+import LoadingOverlay from 'react-loading-overlay';
 
 // import { bindActionCreators } from 'redux';
 // import { connect } from 'react-redux';
@@ -18,6 +19,7 @@ class SignInContainer extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            pending: false,
             loading: false,
             data: [],
             msg:"",
@@ -31,16 +33,9 @@ class SignInContainer extends React.Component {
 
     getPost = async (signInData) => {
         const { LoginOkActions } = this.props;
-
-        // try {
-        //     await AbcActions.postLogin(signUpData);
-        //     console.log('요청이 완료 된 다음에 실행됨')
-        // } catch(e) {
-        //     console.log('에러가 발생!');
-        // }
         try {
             this.setState({
-                loading: true
+                pending: true
             })
             const data = await service.postSignIn(signInData);
             console.log(data);
@@ -51,7 +46,7 @@ class SignInContainer extends React.Component {
             }
             this.setState({
                 data: data,
-                loading: false,
+                pending: false,
                 msg: data.data.msg,
                 success: data.data.success
             });
@@ -69,27 +64,38 @@ class SignInContainer extends React.Component {
             userId: e.target.userId.value,
             userPw: e.target.userPw.value,
         }
-        console.log(signInData);
         this.getPost(signInData);
         
     }
 
     render(){
         // const { PostActions, data, loading, error, isLoading } = this.props;
-        const { data, loading, msg, success } = this.state;
+        const { data, loading, msg, success, pending } = this.state;
         return(
-            loading?
-            (<img style={{"width": "100%"}} src={loding} />):
-            (
-            <SignIn
-            onClickSubmit={this.hanldeLoginClick}
-            data={data}
-            msg={msg}
-            success={success}
-            loading={loading}
-            />
+            <LoadingOverlay
+                active={pending}
+                spinner
+                text='잠시만 기다려주세요...'
+                styles={{
+                    overlay: (base) => ({
+                    ...base,
+                    "position": "fixed",
+                    "width": "100%",
+                    "height": "100%",
+                    "left": "0",
+                    "z-index": "10"
+                    })
+                }}
+                >
+                <SignIn
+                    onClickSubmit={this.hanldeLoginClick}
+                    data={data}
+                    msg={msg}
+                    success={success}
+                    loading={loading}
+                />
+            </LoadingOverlay>
             )
-        )
     }
 
 }

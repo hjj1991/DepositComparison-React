@@ -6,7 +6,7 @@ import './SignUp.css'
 
 
 
-const SighUp = ({ signUpSubmit, checkUserValue, idCheckMessage, idFontColor, pwCheckMessage, pwFontColor, pw2CheckMessage, pw2FontColor, nameCheckMessage, nameFontColor, nickNameCheckMessage, nickNameFontColor, isOk }) => {
+const SighUp = ({ signUpSubmit, checkUserValue, validationData, isOk }) => {
 
     if(isOk === true)
         alert("회원가입이 성공하였습니다.");
@@ -23,36 +23,29 @@ const SighUp = ({ signUpSubmit, checkUserValue, idCheckMessage, idFontColor, pwC
                 <Form.Group controlId="userId" onBlur={checkUserValue} >
                     <Form.Label>아이디</Form.Label>
                     <Form.Control type="text" placeholder="아이디를 입력하세요" />
-                    <div style={{"color": idFontColor}}>
-                        {idCheckMessage}
+                    <div style={{"color": validationData.idFontColor}}>
+                        {validationData.idCheckMessage}
                     </div>
                 </Form.Group>
                 <Form.Group controlId="userPw" onChange={checkUserValue}>
                     <Form.Label>비밀번호</Form.Label>
                     <Form.Control type="password" placeholder="비밀번호를 입력하세요."/>
-                    <div style={{"color": pwFontColor}}>
-                        {pwCheckMessage}
+                    <div style={{"color": validationData.pwFontColor}}>
+                        {validationData.pwCheckMessage}
                     </div>
                 </Form.Group>
                 <Form.Group controlId="userPw2" onChange={checkUserValue}>
                     <Form.Label>비밀번호확인</Form.Label>
                     <Form.Control type="password" placeholder="비밀번호를 입력하세요."/>
-                    <div style={{"color": pw2FontColor}}>
-                        {pw2CheckMessage}
+                    <div style={{"color": validationData.pw2FontColor}}>
+                        {validationData.pw2CheckMessage}
                     </div>
                 </Form.Group>
                 <Form.Group controlId="userName" onChange={checkUserValue} >
                     <Form.Label>이름</Form.Label>
                     <Form.Control type="text" placeholder="이름을 입력하세요" />
-                    <div style={{"color": nameFontColor}}>
-                        {nameCheckMessage}
-                    </div>
-                </Form.Group>
-                <Form.Group controlId="userNickName" onChange={checkUserValue} >
-                    <Form.Label>별명</Form.Label>
-                    <Form.Control type="text" placeholder="별명을 입력하세요" />
-                    <div style={{"color": nickNameFontColor}}>
-                        {nickNameCheckMessage}
+                    <div style={{"color": validationData.nameFontColor}}>
+                        {validationData.nameCheckMessage}
                     </div>
                 </Form.Group>
                 <Form.Group controlId="userEmail">

@@ -4,7 +4,7 @@ import {bindActionCreators} from 'redux';
 import { connect } from 'react-redux';
 import storage from 'lib/storage';
 import { Route, Switch } from 'react-router-dom';
-import { Home, SignUp, SignIn, Board, BoardDetail, BoardWrite, MyInfo } from 'pages';
+import { Home, SignUp, SignIn, Board, BoardDetail, BoardWrite, MyInfo, SocialLogin } from 'pages';
 import * as loginOkActions from '../store/modules/userLogin';
 import loding from 'images/loading.gif';
 import Menu from 'components/Menu';
@@ -16,10 +16,11 @@ class App extends Component {
         super(props);
         this.state = {
             loading: false
-        };
+        }; 
     }
 
     initializeUserInfo = async () => {
+        var today = new Date();
         const loggedInfo = storage.get('userLogin'); // 로그인 정보를 로컬스토리지에서 가져옵니다.
         if(!loggedInfo){// 로그인 정보가 없다면 여기서 멈춥니다.
             this.setState({
@@ -28,6 +29,10 @@ class App extends Component {
         }else{
             const { LoginOkActions } = this.props;
             await LoginOkActions.setLoggedInfo(loggedInfo);
+            if(this.props.userInfo.exAuthToken < today.getTime()){//액세스토큰 만료시간을 비교하여 만료되었으면 refresh토큰을 이용하여 갱신함
+                await LoginOkActions.setRefreshAccessToken(this.props.userInfo);
+                storage.set('userLogin', this.props.userInfo);
+            }
             this.setState({
                 loading: true
             })
@@ -60,6 +65,7 @@ class App extends Component {
                 </Switch>
                 <Route exact path="/signin" component={SignIn} />
                 <Route exact path="/myinfo" component={MyInfo} />
+                <Route path="/sociallogin" component={SocialLogin} />
                 {/* <Route exact path="/DashBoard" component={DashBoard}/>
                 <Route exact path="/workloads" component={Workloads}/> */}
                 {/* <Switch>

@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import * as userInfoActions from 'store/modules/userLogin';
 import storage from 'lib/storage';
 import Modal from '../components/Modal/Modal';
+import LoadingOverlay from 'react-loading-overlay';
 
 
 class MyInfoContainer extends React.Component {
@@ -32,33 +33,20 @@ class MyInfoContainer extends React.Component {
             this.setState({
                 pending: true
             })
-            var today = new Date();
             const { UserInfoActions } = this.props;
-            if(this.props.userInfo.exAuthToken < today.getTime()){ //액세스토큰 만료시간을 비교하여 만료되었으면 refresh토큰을 이용하여 갱신함
-                const result2 = await service.postTokenReissue(this.props.userInfo.X_REFRESH_TOKEN);
-                if(result2.data.code === "1"){
-                    UserInfoActions.refreshAccessToken(result2.data.X_AUTH_TOKEN, result2.data.exAuthToken);
-                }else{  //리프레쉬토큰도 만료되면 새로 로그인해야함
-                    storage.remove('userLogin');
-                    this.setState({
-                        isModalOpen: true
-                    })
-                }
-            }
             const data = await service.getUserDetail(this.props.userInfo.X_REFRESH_TOKEN);
-            console.log(data);
             if(data.data.success){
                 this.setState({
+                    pending: false,
+                    isLoading: true,
                     userInfo: data.data.data,
-                    isLoading: true
                 })
             }else if(data.data.code === "999"){
                 storage.remove('userLogin');
                 UserInfoActions.deleteLoggedInfo();
                 this.setState({
-                    isModalOpen: true,
+                    pending: false,
                     contents: "로그인이 필요합니다.",
-                    page: "/signin"
                 })
             }
             
@@ -79,22 +67,20 @@ class MyInfoContainer extends React.Component {
                 storage.remove('userLogin');
                 UserInfoActions.deleteLoggedInfo();
                 this.setState({
-                    isModalOpen: true,
-                    contents: "로그아웃 되었습니다.",
-                    page: "/"
+                    pending: false,
                 })
             }else{
                 storage.remove('userLogin');
                 UserInfoActions.deleteLoggedInfo();
                 this.setState({
-                    isModalOpen: true,
-                    contents: "잘못된 접근입니다.",
-                    page: "/"
+                    pending: false,
                 })
             }
+            
         } catch(e) {
             console.log("에러가 발생!2");
         }
+        window.location.href = 'http://localhost:3000';
     }
 
     handleLogoutClick = () => {
@@ -105,15 +91,47 @@ class MyInfoContainer extends React.Component {
     render(){
         console.log(this.state.isLoading);
         return(
-            this.state.isModalOpen?(
-                <Modal isOpen="true" contents={this.state.contents} page={this.state.page}/>
+            this.state.isLoading?
+            (
+                <LoadingOverlay
+                    active={this.state.pending}
+                    spinner
+                    text='잠시만 기다려주세요...'
+                    styles={{
+                        overlay: (base) => ({
+                        ...base,
+                        "position": "fixed",
+                        "width": "100%",
+                        "height": "100%",
+                        "left": "0",
+                        "z-index": "10"
+                        })
+                    }}
+                    >
+                    <MyInfo 
+                        userInfo={this.state.userInfo}
+                        onClickLogout={this.handleLogoutClick}
+                    />
+                </LoadingOverlay>
             ):(
-            <MyInfo 
-                userInfo={this.state.userInfo}
-                isLoading={this.state.isLoading}
-                onClickLogout={this.handleLogoutClick}
-            />
+                <LoadingOverlay
+                active={this.state.pending}
+                spinner
+                text='잠시만 기다려주세요...'
+                styles={{
+                    overlay: (base) => ({
+                    ...base,
+                    "position": "fixed",
+                    "width": "100%",
+                    "height": "100%",
+                    "left": "0",
+                    "z-index": "10"
+                    })
+                }}
+                >
+            </LoadingOverlay>
             )
+
         )
     }
 

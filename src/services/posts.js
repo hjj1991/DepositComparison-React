@@ -1,12 +1,49 @@
 import axios from 'axios';
+import storage from 'lib/storage';
 import userLogin from '../store/modules/userLogin';
 import { useDispatch  } from 'react-redux'
+
+
+
+axios.interceptors.response.use( response => {
+    return response;
+}, async error => {
+    console.log("에잉??");
+    if(typeof error.response !== 'undefined'){
+        console.log("에잉??222");
+        if(error.response.status === 401 && storage.get('userLogin') !== null){         //authToken 검증 실패시 refresh토큰을 이용하여 갱신
+            let userInfo = storage.get('userLogin');
+            console.log("에잉??");
+            try {
+                const result = await postTokenReissue(userInfo.X_REFRESH_TOKEN);
+                if(result.data.success === true){
+                    userInfo.X_AUTH_TOKEN = result.data.data.X_AUTH_TOKEN;
+                    userInfo.exAuthToken = result.data.data.exAuthToken;
+                    storage.set('userLogin', userInfo);
+                    error.response.config.headers.X_AUTH_TOKEN = result.data.data.X_AUTH_TOKEN;
+                    return await axios(error.response.config);
+    
+                }
+            } catch (error) {
+                console.log("에잉??");
+                storage.remove('userLogin');
+                alert('세션이 만료되었습니다. 다시 로그인하세요.');
+                // window.location.href = 'http://10.131.109.51:3000';
+                window.location.href = 'http://localhost:3000';
+                return Promise.reject(error);
+            }
+
+        }
+    }
+        return Promise.reject(error);
+    
+});
 
 var siteUrl = "http://localhost:8080";
 
 
 export function getCheckId(id) {
-    return axios.get(siteUrl + `/v1/user/checkid/` + id);
+    return axios.get(siteUrl + `/v1/user/check/` + id);
 }
 
 export function getUserDetail(token){
@@ -37,12 +74,11 @@ export function getBoardDetail(indx){
 }
 
 export function postSignUp(data){
-    return axios.put(siteUrl + '/v1/signup', {
+    return axios.post(siteUrl + '/v1/signup', {
         userId: data.userId,
-        password: data.userPw,
+        userPw: data.userPw,
         name: data.userName,
-        nickName: data.userNickName,
-        emailAddr: data.userEmail
+        email: data.userEmail
     
     });
 }
@@ -50,7 +86,7 @@ export function postSignUp(data){
 export function postSignIn(data){
     return axios.post(siteUrl + '/v1/signin',{
         userId: data.userId,
-        password: data.userPw
+        userPw: data.userPw
     });
 }
 
@@ -105,3 +141,13 @@ export function postBoardModify(data, token){
     });
 }
 
+export function postLoginToKakao(data){
+    return axios(
+    {
+        url:siteUrl + '/v1/social/kakao/login',
+        method: 'post',
+        data:{
+            code: data
+        }
+    });
+}

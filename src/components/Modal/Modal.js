@@ -5,11 +5,6 @@ import './Modal.css';
 const Modal = ({ isOpen, contents, page }) => {
     //console.log(isOk);
     var locationPage;
-    if(typeof page == "undefined"){
-        locationPage = "/board";
-    }else{
-        locationPage = page;
-    }
 
     return (
         <React.Fragment>

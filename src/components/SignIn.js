@@ -1,23 +1,19 @@
 import React from 'react';
 import {Container, Row, Col, Form, Button} from 'react-bootstrap'
 import { Redirect } from 'react-router-dom';
+import kakaoLoginButton from 'images/kakao_login.png'
 import './SignUp.css'
 
 
 
 
 const SighIn = ({ onClickSubmit, msg, success }) => {
-
-    console.log(success);
-
     if (success){ //로딩이 완료되었고, 로그인이 성공적으로 됐다면
         return(
             <Redirect to="/"/>
         );
     }
-
     return (
-
         <Container>
             <Row id="title">
                 <Col>
@@ -39,6 +35,12 @@ const SighIn = ({ onClickSubmit, msg, success }) => {
                 <Button variant="outline-secondary" type="submit" size="lg" block>
                     로그인
                 </Button>
+                <div class="hr-sect">소셜 로그인</div>
+                <div className="social-login-div">
+                    <a href="https://kauth.kakao.com/oauth/authorize?client_id=656c5afa5455de8f5ad9eb51e09e3720&redirect_uri=http://localhost:3000/sociallogin?provider=kakao&response_type=code"><img src={kakaoLoginButton} /></a>
+                </div>
+                
+                
             </Form>
         </Container>
 )

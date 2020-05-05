@@ -9,6 +9,7 @@ import rootReducer from './store/modules';
 import { Provider } from 'react-redux';
 import { createLogger } from 'redux-logger';
 import ReduxThunk from 'redux-thunk';
+import penderMiddleware from 'redux-pender';
 import Root from './client/Root';
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -27,7 +28,9 @@ const composeEnhancers =
 
 const logger = createLogger();
 
-const store = createStore(rootReducer,  composeEnhancers(applyMiddleware(logger, ReduxThunk)));
+
+const store = createStore(rootReducer,  composeEnhancers(applyMiddleware(logger, ReduxThunk, penderMiddleware())));
+// const store = createStore(rootReducer,  composeEnhancers(applyMiddleware(logger, ReduxThunk)));
 
 // const store = createStore(rootReducer,  applyMiddleware(logger, ReduxThunk));
 
