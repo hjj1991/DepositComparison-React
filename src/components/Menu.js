@@ -27,7 +27,7 @@ const Menu = () => {
         }else{
             return (
                 <React.Fragment>
-                    <Navbar.Text id="user-bar">환영합니다.{userInfo.userId}님<img src={userInfo.picture} /></Navbar.Text>
+                    <Navbar.Text id="user-bar">환영합니다.{userInfo.userId}님<img width="25px" src={userInfo.picture} /></Navbar.Text>
                     <NavLink className="nav-link" to="/myinfo" >MyInfo</NavLink>
                 </React.Fragment>
             )

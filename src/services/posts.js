@@ -144,10 +144,8 @@ export function postBoardModify(data, token){
 export function postLoginToKakao(data){
     return axios(
     {
-        url:siteUrl + '/v1/social/kakao/login',
+        url:siteUrl + '/v1/social/login',
         method: 'post',
-        data:{
-            code: data
-        }
+        data: data
     });
 }

@@ -28,10 +28,19 @@ class App extends Component {
             })
         }else{
             const { LoginOkActions } = this.props;
-            await LoginOkActions.setLoggedInfo(loggedInfo);
-            if(this.props.userInfo.exAuthToken < today.getTime()){//액세스토큰 만료시간을 비교하여 만료되었으면 refresh토큰을 이용하여 갱신함
-                await LoginOkActions.setRefreshAccessToken(this.props.userInfo);
-                storage.set('userLogin', this.props.userInfo);
+            try{
+                await LoginOkActions.setLoggedInfo(loggedInfo);
+                if(this.props.userInfo.exAuthToken < today.getTime()){//액세스토큰 만료시간을 비교하여 만료되었으면 refresh토큰을 이용하여 갱신함
+                    await LoginOkActions.setRefreshAccessToken(this.props.userInfo);
+                    storage.set('userLogin', this.props.userInfo);
+                }
+
+            }catch{
+                storage.remove('userLogin');
+                LoginOkActions.deleteLoggedInfo();
+                this.setState({
+                    pending: false,
+                })
             }
             this.setState({
                 loading: true

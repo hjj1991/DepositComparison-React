@@ -32,7 +32,7 @@ class SocialLoginContainer extends React.Component {
             this.setState({
                 pending: true
             })
-            const data = await service.postLoginToKakao(this.props.data.code);
+            const data = await service.postLoginToKakao(this.props.data);
             console.log(data);
             if(data.data.success){
                 LoginOkActions.setLoggedInfo(data.data.data);
