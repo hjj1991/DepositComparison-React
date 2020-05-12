@@ -6,10 +6,26 @@ import { NavLink } from 'react-router-dom';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import SignInContainer from 'containers/SignInContainer';
+import Dropdown from 'react-bootstrap/Dropdown'
+import FormControl from 'react-bootstrap/FormControl'
 import 'css/style.css';
 // import {render} from 'react-dom';
 // import logo from '../logo.png' //실제 로고파일 경로
 
+
+//드롭다운 펑션
+const DropdownMenu = () => {
+    return (
+        <div className="custom-dropdown-menu">
+            <li><a href="/saving" id="current" className="nav-link">저축</a>
+                <ul>
+                    <li><a href="/saving">예금</a></li>
+                    <li><a href="/saving/installment">적금</a></li>
+                </ul>
+            </li>
+        </div>
+    )
+}
 
 
 const Menu = () => {
@@ -42,6 +58,7 @@ const Menu = () => {
         
 
 
+
     // const array = ['dog', 'cat', 'sheep'];
 // const [first, second] = array;
 //console.log(setShow); // dog cat
@@ -53,7 +70,7 @@ const Menu = () => {
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav className="mr-auto">
-                <NavLink className="nav-link" to="/board" >Board</NavLink>
+                    <NavLink className="nav-link" to="/board" >Board</NavLink>
                 {/* <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
                     <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
                     <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
@@ -61,6 +78,7 @@ const Menu = () => {
                     <NavDropdown.Divider />
                     <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
                 </NavDropdown> */}
+                <DropdownMenu />
                 </Nav>
                 <Nav>
                     <LoginCheck />

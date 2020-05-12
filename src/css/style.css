@@ -1,6 +1,6 @@
-body {
+/* body {
     background-color: rgb(121, 131, 138)!important;
-}
+} */
 
 .row {
     padding-top: 10px;
@@ -11,13 +11,49 @@ body {
     background-color: white;
 }
 
-.pagination {
-    display: table!important;
-    margin-left: auto;
-    margin-right: auto;
-    padding-bottom: 20px;
+.caret {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-left: 2px;
+    vertical-align: middle;
+    border-top: 4px dashed;
+    border-top: 4px solid \9;
+    border-right: 4px solid transparent;
+    border-left: 4px solid transparent;
+    }
+    
+    .dropup, .dropdown {
+    position: relative;
+    }
+    
+    .dropup .caret, .navbar-fixed-bottom .dropdown .caret {
+    border-top: 0;
+    border-bottom: 4px dashed;
+    border-bottom: 4px solid \9;
+    content: "";
 }
 
+.main-contents {
+    margin: 10px auto 0px auto;
+    width: 80%;
+}
+.main-contents-title {
+    font-size: 40px;
+}
+
+.pagination.react-bootstrap-table-page-btns-ul {
+    justify-content: center;
+}
+
+.page-item[title="Pre page"], .page-item[title="First page"] {
+    display: none;
+}
+
+
+.page-item.active .page-link {
+    z-index: 0!important;
+}
 .boarder-bottom-toolbox-right {
     text-align: right;
 }
@@ -54,4 +90,83 @@ body {
 	font-size: 0px;
 	line-height: 0px;
 	margin: 0px 16px;
+}
+
+.custom-dropdown-menu li ul {
+    background: white;
+    border-radius: 5px 5px 5px 5px;
+    display:none;  /* 평상시에는 서브메뉴가 안보이게 하기 */
+    list-style: none;
+    height:auto;
+    padding:0px;
+    margin:0px;
+    border:0px;
+    position:absolute;
+    width:200px;
+    z-index:200;
+    box-shadow: 5px 5px;
+}
+
+.saving-title {
+    font-weight: bold;
+    text-align: center;
+}
+
+.custom-dropdown-menu li ul a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+  
+.custom-dropdown-menu li ul a:hover {background-color: #ddd;}
+.custom-dropdown-menu li ul :first-child {
+    border-radius: 5px 5px;
+}
+
+
+.custom-dropdown-menu li:hover ul {
+    display:block;   /* 마우스 커서 올리면 서브메뉴 보이게 하기 */
+}
+
+
+
+@media only screen and (min-width: 1200px) {
+
+    .nav.nav-tabs{
+        font-size: 30px;
+    }
+}
+
+@media only screen and (max-width: 1199px) {
+    .nav.nav-tabs{
+        font-size: 30px;
+    }
+
+}
+
+@media only screen and (max-width: 1108px) {
+
+
+}
+
+
+@media only screen and (max-width: 991px) {
+    .custom-dropdown-menu li ul {
+        position: relative;
+        width:100%;
+    }
+
+}
+
+@media only screen and (max-width: 768px) {
+
+
+}
+
+
+
+@media only screen and (max-width: 576px) {
+
+
 }

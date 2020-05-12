@@ -9,6 +9,7 @@ import * as loginOkActions from '../store/modules/userLogin';
 import loding from 'images/loading.gif';
 import Menu from 'components/Menu';
 import 'css/style.css'
+import InstallmentSaving from '../pages/InstallmentSaving';
 
 class App extends Component {
 
@@ -75,6 +76,7 @@ class App extends Component {
                 <Route exact path="/signin" component={SignIn} />
                 <Route exact path="/myinfo" component={MyInfo} />
                 <Route path="/sociallogin" component={SocialLogin} />
+                <Route path="/saving/installment" component={InstallmentSaving} />
                 {/* <Route exact path="/DashBoard" component={DashBoard}/>
                 <Route exact path="/workloads" component={Workloads}/> */}
                 {/* <Switch>

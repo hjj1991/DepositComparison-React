@@ -149,3 +149,7 @@ export function postLoginToKakao(data){
         data: data
     });
 }
+
+export function getInstallmentSavingList() {
+    return axios.get(siteUrl + `/v1/insmoney/`);
+}

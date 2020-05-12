@@ -63,19 +63,11 @@ class MyInfoContainer extends React.Component {
             })
             const data = await service.postSignOut(this.props.userInfo.X_REFRESH_TOKEN);
             const { UserInfoActions } = this.props;
-            if(data.data.success){
                 storage.remove('userLogin');
                 UserInfoActions.deleteLoggedInfo();
                 this.setState({
                     pending: false,
                 })
-            }else{
-                storage.remove('userLogin');
-                UserInfoActions.deleteLoggedInfo();
-                this.setState({
-                    pending: false,
-                })
-            }
             
         } catch(e) {
             console.log("에러가 발생!2");
