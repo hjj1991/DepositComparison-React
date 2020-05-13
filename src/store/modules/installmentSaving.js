@@ -8,6 +8,28 @@ function axiosGetInstallmentSavingList(){
     return service.getInstallmentSavingList();
 }
 
+function deepFreeze(obj) {
+    const props = Object.getOwnPropertyNames(obj);
+  
+    props.forEach((name) => {
+      const prop = obj[name];
+      if(typeof prop === 'object' && prop !== null) {
+        deepFreeze(prop);
+      }
+    });
+    return Object.freeze(obj);
+}
+
+function cloneObject(obj) {
+    var clone = {};
+    for(var i in obj) {
+        if(typeof(obj[i])=="object" && obj[i] != null)
+            clone[i] = cloneObject(obj[i]);
+        else
+            clone[i] = obj[i];
+    }
+    return clone;
+}
 
 
 
@@ -44,31 +66,31 @@ export default handleActions({
         // 함수가 생략됐을때 기본 값으론 (state, action) => state 가 설정됩니다 (state 를 그대로 반환한다는 것이죠)
     }),
     [SET_DATA_CHANGE]: (state, action) => {
-        let result = state.data;
-
+        const tempData = state.data;
+        let result = JSON.parse(JSON.stringify(tempData));
         if(action.payload.rsrvTypeNm.value !== ""){
-            result = result.filter( (element) => {
+            result = result.map( (element) => {
                 // console.log(element);
                 element.optionList = element.optionList.filter( (temp) => {
-                    console.log(temp);
                     return temp.rsrvTypeNm === action.payload.rsrvTypeNm.value;
                 });
-                
-                return element.optionList.length !== 0;
+                if(element.optionList.length !== 0)
+                    return element
+            })
+
+            result = result.filter(temp2 => {
+                return typeof temp2 !== 'undefined';
             });
         }
         
         if(action.payload.bankRole.value !== ""){
             result = result.filter( (element) => {
-                console.log(element.bankInfo.bankRole);
                 
                 return element.bankInfo.bankRole === action.payload.bankRole.value
             });
         }
-        console.log(result);
-
         return{
-            data: state.data,            
+            data: tempData,            
             filterData: result
             
         }

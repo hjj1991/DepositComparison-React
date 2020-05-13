@@ -50,7 +50,6 @@ class InstallmentSavingContainer extends React.Component {
 
     render(){
         const { success, error, installmentSavingList} = this.props;
-        console.log(success);
         return(
             success?
             <InstallmentSaving 
