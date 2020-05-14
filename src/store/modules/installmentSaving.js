@@ -68,11 +68,15 @@ export default handleActions({
     [SET_DATA_CHANGE]: (state, action) => {
         const tempData = state.data;
         let result = JSON.parse(JSON.stringify(tempData));
+
+
+
+        // 전체, 정액접립식, 자유적립식 필터, 저축예정 기간 필터
         if(action.payload.rsrvTypeNm.value !== ""){
             result = result.map( (element) => {
                 // console.log(element);
                 element.optionList = element.optionList.filter( (temp) => {
-                    return temp.rsrvTypeNm === action.payload.rsrvTypeNm.value;
+                    return temp.saveTrm === action.payload.saveTrm.value && temp.rsrvTypeNm === action.payload.rsrvTypeNm.value 
                 });
                 if(element.optionList.length !== 0)
                     return element
@@ -82,7 +86,13 @@ export default handleActions({
                 return typeof temp2 !== 'undefined';
             });
         }
-        
+
+        // 가입대상 필터
+        result = result.filter( temp  => {
+            return temp.joinDeny === action.payload.joinDeny.value;
+        });
+
+        // 저축은행, 은행, 전체 필터
         if(action.payload.bankRole.value !== ""){
             result = result.filter( (element) => {
                 

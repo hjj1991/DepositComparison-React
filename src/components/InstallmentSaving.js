@@ -18,12 +18,41 @@ const InstallmentSaving = ({ installmentSavingList, onChangeType }) => {
       dataField: 'korCoNm',
       text: '금융회사',
       sort: true,
+      headerAlign: 'center',
+      align: 'center'
     },
     {
       dataField: 'finPrdtNm',
       text: '상품명',
-      sort: true
+      sort: true,
+      headerAlign: 'center'
     },
+    {
+        dataField: 'optionList',
+        text: '방식',
+        headerAlign: 'center',
+        align: 'center',
+        sort: true,
+        formatter: (cell, row, index, extraData) => {
+            var jau = 0, jung = 0;
+            for(var i = 0; i < cell.length; i++){
+                if(cell[i].rsrvTypeNm === "정액적립식")
+                    jung++;
+                if(cell[i].rsrvTypeNm === "자유적립식")
+                    jau++;
+            }
+            if(jau > 0 && jung > 0)
+                return "자유/정액 적립식";
+            else if(jau > 0 && jung === 0)
+                return "자유 적립식";
+            else if(jau === 0 && jung > 0)
+                return "정액 적립식";
+            else
+                return "";
+            
+        }
+    },
+
   ];
 
   const selectRow = {
@@ -44,6 +73,7 @@ const InstallmentSaving = ({ installmentSavingList, onChangeType }) => {
     renderer: row => {
       return (
         <Container>
+            {row.korCoNm}
         </Container>
       )
     }

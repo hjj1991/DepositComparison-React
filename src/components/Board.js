@@ -3,7 +3,6 @@ import {Container, Row, Col, Table, Button, Form} from 'react-bootstrap'
 import ButtonGroup from 'react-bootstrap/ButtonGroup'
 import Pagination from 'react-bootstrap/Pagination'
 import { Link } from 'react-router-dom';
-import 'css/boardStyle.css'
 
 
 

@@ -19,15 +19,8 @@ class InstallmentSavingContainer extends React.Component {
 
     handleChangeType = (e) => {
         var name = name;
-        console.log(e.currentTarget.saveTrm.value);
         const { InstallmentSavingActions } = this.props;
         InstallmentSavingActions.setDataChange(e.currentTarget);
-        // if(e.target.name === "rsrvTypeNm"){
-            // console.log(this.props.installmentSavingList);
-            // this.setState = {
-            //     data: 
-            // }
-        // }
     }
 
     getInstallmentSavingListFunction = async () => {

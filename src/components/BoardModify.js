@@ -2,11 +2,9 @@ import React, { useState, useEffect } from 'react';
 import {Container, Row, Col, Button, Form} from 'react-bootstrap'
 import Modal from '../components/Modal/Modal';
 import loading from 'images/loading.gif';
-import 'css/boardStyle.css'
 import 'tui-editor/dist/tui-editor.min.css';
 import 'tui-editor/dist/tui-editor-contents.min.css';
 import { Editor } from '@toast-ui/react-editor'
-import 'css/boardStyle.css';
 
 
 

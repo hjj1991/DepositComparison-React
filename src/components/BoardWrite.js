@@ -3,11 +3,9 @@ import {Container, Row, Col, Button, Form} from 'react-bootstrap'
 import Modal from '../components/Modal/Modal';
 import Pagination from 'react-bootstrap/Pagination'
 import { Link, Redirect } from 'react-router-dom';
-import 'css/boardStyle.css'
 import 'tui-editor/dist/tui-editor.min.css';
 import 'tui-editor/dist/tui-editor-contents.min.css';
 import { Editor } from '@toast-ui/react-editor'
-import 'css/boardStyle.css';
 
 
 
