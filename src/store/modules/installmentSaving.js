@@ -58,9 +58,23 @@ export default handleActions({
             onFailure: (state, action) => state
         */
         onSuccess: (state, action) => { // 성공했을때 해야 할 작업이 따로 없으면 이 함수 또한 생략해도 됩니다.
+
+            const tempData = action.payload.data.list;
+            let result = JSON.parse(JSON.stringify(tempData));
+            result = result.map( (element) => {
+                // console.log(element);
+                element.optionList = element.optionList.filter( (temp) => {
+                        return temp.saveTrm === "12" && temp.intrRateTypeNm === "단리" && temp.rsrvTypeNm === "정액적립식";
+                });
+                if(element.optionList.length !== 0)
+                    return element
+            }).filter(temp2 => {
+                return typeof temp2 !== 'undefined';
+            });
+
             return {
-                data: action.payload.data.list,
-                filterData: action.payload.data.list
+                data: tempData,
+                filterData: result
             }
         }
         // 함수가 생략됐을때 기본 값으론 (state, action) => state 가 설정됩니다 (state 를 그대로 반환한다는 것이죠)
@@ -71,21 +85,20 @@ export default handleActions({
 
 
 
-        // 전체, 정액접립식, 자유적립식 필터, 저축예정 기간 필터
-        if(action.payload.rsrvTypeNm.value !== ""){
+        // 전체, 정액접립식, 자유적립식 필터, 저축예정 기간 필터, 단리복리 필터
+        
             result = result.map( (element) => {
                 // console.log(element);
                 element.optionList = element.optionList.filter( (temp) => {
-                    return temp.saveTrm === action.payload.saveTrm.value && temp.rsrvTypeNm === action.payload.rsrvTypeNm.value 
+                    return temp.saveTrm === action.payload.saveTrm.value && temp.rsrvTypeNm === action.payload.rsrvTypeNm.value && temp.intrRateTypeNm === action.payload.intrRateTypeNm.value;
                 });
                 if(element.optionList.length !== 0)
                     return element
-            })
-
-            result = result.filter(temp2 => {
+            }).filter(temp2 => {
                 return typeof temp2 !== 'undefined';
             });
-        }
+        
+
 
         // 가입대상 필터
         result = result.filter( temp  => {

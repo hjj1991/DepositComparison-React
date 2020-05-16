@@ -19,39 +19,59 @@ const InstallmentSaving = ({ installmentSavingList, onChangeType }) => {
       text: '금융회사',
       sort: true,
       headerAlign: 'center',
-      align: 'center'
+      align: 'center',
+      headerStyle: (colum, colIndex) => {
+        return { width: '20%', textAlign: 'center', 'white-space': 'nowrap' };
+      }
     },
     {
       dataField: 'finPrdtNm',
       text: '상품명',
       sort: true,
-      headerAlign: 'center'
+      headerAlign: 'center',
+      headerStyle: (colum, colIndex) => {
+        return { width: '40%'};
+      }
+      
     },
     {
-        dataField: 'optionList',
-        text: '방식',
-        headerAlign: 'center',
-        align: 'center',
-        sort: true,
-        formatter: (cell, row, index, extraData) => {
-            var jau = 0, jung = 0;
-            for(var i = 0; i < cell.length; i++){
-                if(cell[i].rsrvTypeNm === "정액적립식")
-                    jung++;
-                if(cell[i].rsrvTypeNm === "자유적립식")
-                    jau++;
-            }
-            if(jau > 0 && jung > 0)
-                return "자유/정액 적립식";
-            else if(jau > 0 && jung === 0)
-                return "자유 적립식";
-            else if(jau === 0 && jung > 0)
-                return "정액 적립식";
-            else
-                return "";
-            
-        }
+      dataField: 'optionList[0].intrRate',
+      text: '이율',
+      sort: true,
+      headerAlign: 'center',
+      align: 'center',
+      headerStyle: (colum, colIndex) => {
+        return { width: '5%', textAlign: 'center' };
+      }
     },
+    {
+      dataField: 'optionList[0].intrRate2',
+      text: '최고우대금리',
+      sort: true,
+      headerAlign: 'center',
+      align: 'center',
+      headerStyle: (colum, colIndex) => {
+        return { width: '15%', textAlign: 'center'};
+      }
+    },
+    {
+      dataField: 'joinDeny',
+      text: '가입제한',
+      sort: true,
+      headerAlign: 'center',
+      align: 'center',
+      headerStyle: (colum, colIndex) => {
+        return { width: '20%', textAlign: 'center'};
+      },
+      formatter: (cell, row) => {
+        if(cell === "1")
+          return "제한없음"
+        else if(cell === "2")
+          return "서민전용"
+        else
+          return "일부제한"
+      }
+    }
 
   ];
 
@@ -73,7 +93,23 @@ const InstallmentSaving = ({ installmentSavingList, onChangeType }) => {
     renderer: row => {
       return (
         <Container>
-            {row.korCoNm}
+            <Row>
+              <div className="col-12 col-md-6">
+                <div className="product-title">상품문의</div><br/>
+                <a href={row.bankInfo.hompUrl}>{row.bankInfo.korCoNm}</a><br/>
+                {row.bankInfo.calTel}
+              </div>
+            </Row>
+            <Row>
+              <div className="col-12 col-md-6">
+                <div className="product-title">우대조건</div><br/>
+                {
+                  row.spclCnd.split('\n').map( line => {
+                    return (<span>{line}<br/></span>)
+                  })
+                }
+              </div>
+            </Row>
         </Container>
       )
     }
@@ -149,7 +185,7 @@ const InstallmentSaving = ({ installmentSavingList, onChangeType }) => {
               }) => (
                   <Fragment>
                     <ToolkitProvider
-                      keyField='workloadId'
+                      keyField='id'
                       columns={columns}
                       data={products}
                       search
@@ -211,10 +247,14 @@ const InstallmentSaving = ({ installmentSavingList, onChangeType }) => {
                                       적립방식
                                     </div>
                                     <div className="col-7">
-                                      <ToggleButtonGroup type="radio" name="rsrvTypeNm" defaultValue="">
-                                        <ToggleButton variant="outline-warning" value="">전체</ToggleButton>
+                                      <ToggleButtonGroup type="radio" name="rsrvTypeNm" defaultValue="정액적립식">
                                         <ToggleButton variant="outline-warning" value="정액적립식">정액적립식</ToggleButton>
                                         <ToggleButton variant="outline-warning" value="자유적립식">자유적립식</ToggleButton>
+                                      </ToggleButtonGroup>
+                                      <div style={{"padding": "5px"}} />
+                                      <ToggleButtonGroup type="radio" name="intrRateTypeNm" defaultValue="단리">
+                                        <ToggleButton variant="outline-warning" value="단리">단리</ToggleButton>
+                                        <ToggleButton variant="outline-warning" value="복리">복리</ToggleButton>
                                       </ToggleButtonGroup>
                                     </div>
                                   </Row>
