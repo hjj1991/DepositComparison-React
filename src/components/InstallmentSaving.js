@@ -42,6 +42,9 @@ const InstallmentSaving = ({ installmentSavingList, onChangeType }) => {
       align: 'center',
       headerStyle: (colum, colIndex) => {
         return { width: '5%', textAlign: 'center' };
+      },
+      formatter: (cell, row) => {
+          return cell.toFixed(2) + "%";
       }
     },
     {
@@ -52,6 +55,9 @@ const InstallmentSaving = ({ installmentSavingList, onChangeType }) => {
       align: 'center',
       headerStyle: (colum, colIndex) => {
         return { width: '15%', textAlign: 'center'};
+      },
+      formatter: (cell, row) => {
+          return cell.toFixed(2) + "%";
       }
     },
     {
@@ -94,21 +100,46 @@ const InstallmentSaving = ({ installmentSavingList, onChangeType }) => {
       return (
         <Container>
             <Row>
-              <div className="col-12 col-md-6">
-                <div className="product-title">상품문의</div><br/>
-                <a href={row.bankInfo.hompUrl}>{row.bankInfo.korCoNm}</a><br/>
-                {row.bankInfo.calTel}
-              </div>
+                <div className="col-12">금융회사 최종 제공일 : {row.finCoSubmDay.substring(0, 4)}년 {row.finCoSubmDay.substring(4, 6)}월 {row.finCoSubmDay.substring(6, 8)}일</div>
             </Row>
             <Row>
-              <div className="col-12 col-md-6">
-                <div className="product-title">우대조건</div><br/>
-                {
-                  row.spclCnd.split('\n').map( line => {
-                    return (<span>{line}<br/></span>)
-                  })
-                }
-              </div>
+                <div className="col-12 col-md-6 detail-box">
+                    <div className="product-title">상품문의</div><br/>
+                        <a href={row.bankInfo.hompUrl}>{row.bankInfo.korCoNm}</a><br/>
+                            {row.bankInfo.calTel}
+                    </div>
+                <div className="col-12 col-md-6 detail-box">
+                    <div className="product-title">가입방법</div><br/>
+                        {row.joinWay}
+                </div>
+            </Row>
+            <Row>
+                <div className="col-12 col-md-6 detail-box">
+                    <div className="product-title">우대조건</div><br/>
+                        {
+                            row.spclCnd.split('\n').map( line => {
+                                return (<span>{line}<br/></span>)
+                            })
+                        }
+                </div>
+                <div className="col-12 col-md-6 detail-box">
+                    <div className="product-title">만기후 이자율</div><br/>
+                        {
+                            row.mtrtInt.split('\n').map( line => {
+                                return (<span>{line}<br/></span>)
+                            })
+                        }
+                </div>
+            </Row>
+            <Row>
+                <div className="col-12 col-md-6 detail-box">
+                    <div className="product-title">가입대상</div><br/>
+                        {row.joinMember}
+                    </div>
+                <div className="col-12 col-md-6 detail-box">
+                    <div className="product-title">기타 유의사항</div><br/>
+                        {row.etcNote}
+                </div>
             </Row>
         </Container>
       )

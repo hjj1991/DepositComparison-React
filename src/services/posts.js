@@ -39,7 +39,9 @@ axios.interceptors.response.use( response => {
     
 });
 
-var siteUrl = "http://localhost:8080";
+// var siteUrl = "http://localhost:8080";
+
+var siteUrl = "http://dognas.ipdisk.co.kr:8080";
 
 
 export function getCheckId(id) {

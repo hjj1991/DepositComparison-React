@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import InstallmentSaving from 'components/InstallmentSaving';
 import * as installmentSavingActions from 'store/modules/installmentSaving';
+import loding from 'images/loading.gif';
 
 
 class InstallmentSavingContainer extends React.Component {
@@ -49,7 +50,7 @@ class InstallmentSavingContainer extends React.Component {
                 installmentSavingList={installmentSavingList}
                 onChangeType={this.handleChangeType}
             />
-            :<div>하이</div>
+            :<img style={{"width": "100%"}} src={loding} />
         )
     }
 

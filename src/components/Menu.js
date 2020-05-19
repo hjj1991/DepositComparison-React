@@ -17,7 +17,7 @@ import 'css/style.css';
 const DropdownMenu = () => {
     return (
         <div className="custom-dropdown-menu">
-            <li><a href="/saving" id="current" className="nav-link">저축</a>
+            <li><a href="#" id="current" className="nav-link">저축</a>
                 <ul>
                     <li><a href="/saving">예금</a></li>
                     <li><a href="/saving/installment">적금</a></li>

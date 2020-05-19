@@ -135,6 +135,7 @@
 }
 
 
+
 @media only screen and (min-width: 1200px) {
 
     .nav.nav-tabs{
@@ -164,7 +165,9 @@
 }
 
 @media only screen and (max-width: 768px) {
-
+    .detail-box {
+        margin-bottom: 20px;
+    }
 
 }
 
