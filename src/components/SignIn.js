@@ -38,8 +38,8 @@ const SighIn = ({ onClickSubmit, msg, success }) => {
                 </Button>
                 <div className="hr-sect">소셜 로그인</div>
                 <div className="social-login-div">
-                    <a href="https://kauth.kakao.com/oauth/authorize?client_id=656c5afa5455de8f5ad9eb51e09e3720&redirect_uri=http://localhost:3000/sociallogin?provider=kakao&response_type=code"><img src={kakaoLoginButton} /></a>
-                    <a href="https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=sUyp7Y2KoOfRvdsAEdCc&redirect_uri=http://localhost:3000/sociallogin?provider=naver&state=hLiDdL2uhPtsftcU"><img width="183" src={naverLoginButton} /></a>
+                    <a href="https://kauth.kakao.com/oauth/authorize?client_id=656c5afa5455de8f5ad9eb51e09e3720&redirect_uri=http://dognas.ipdisk.co.kr/sociallogin?provider=kakao&response_type=code"><img src={kakaoLoginButton} /></a>
+                    <a href="https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=sUyp7Y2KoOfRvdsAEdCc&redirect_uri=http://dognas.ipdisk.co.kr/sociallogin?provider=naver&state=hLiDdL2uhPtsftcU"><img width="183" src={naverLoginButton} /></a>
 
                 </div>
                 

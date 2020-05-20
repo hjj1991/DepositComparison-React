@@ -72,7 +72,7 @@ class MyInfoContainer extends React.Component {
         } catch(e) {
             console.log("에러가 발생!2");
         }
-        window.location.href = 'http://localhost:3000';
+        window.location.href = 'http://dognas.ipdisk.co.kr';
     }
 
     handleLogoutClick = () => {
