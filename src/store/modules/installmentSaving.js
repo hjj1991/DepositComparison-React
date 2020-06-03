@@ -112,6 +112,13 @@ export default handleActions({
                 return element.bankInfo.bankRole === action.payload.bankRole.value
             });
         }
+
+        //저축금액 필터
+        if(action.payload.totalSaveMoney.value !== ""){
+            result = result.filter( temp => {
+                return temp.maxLimit > action.payload.saveMoney.value.replace(/,/gi, "");
+            })
+        }
         return{
             data: tempData,            
             filterData: result

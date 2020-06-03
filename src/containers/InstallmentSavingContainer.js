@@ -20,8 +20,14 @@ class InstallmentSavingContainer extends React.Component {
 
     handleChangeType = (e) => {
         var name = name;
+        // e.currentTarget.totalSaveMoney.value = e.currentTarget.totalSaveMoney.value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        e.currentTarget.saveMoney.value = e.currentTarget.saveMoney.value.toString().replace(/,/gi, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        e.currentTarget.totalSaveMoney.value = e.currentTarget.saveMoney.value.replace(/,/gi, "") * e.currentTarget.saveTrm.value;
+        e.currentTarget.totalSaveMoney.value = e.currentTarget.totalSaveMoney.value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         const { InstallmentSavingActions } = this.props;
         InstallmentSavingActions.setDataChange(e.currentTarget);
+        console.log(e.currentTarget.totalSaveMoney);
+        
     }
 
     getInstallmentSavingListFunction = async () => {

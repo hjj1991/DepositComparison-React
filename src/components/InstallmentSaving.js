@@ -231,7 +231,7 @@ const InstallmentSaving = ({ installmentSavingList, onChangeType }) => {
                                   <Row>
                                     <div className="col-5 saving-title">월 저축 금액</div>
                                     <div className="col-7">
-                                      <input className="form-control" type="text"/>
+                                      <input className="form-control" name="saveMoney" numberOnly type="text"/>
                                     </div>
                                   </Row>
                                 </div>
@@ -239,7 +239,7 @@ const InstallmentSaving = ({ installmentSavingList, onChangeType }) => {
                                   <Row>
                                     <div className="col-5 saving-title">총 저축 금액</div>
                                     <div className="col-7">
-                                      <input className="form-control" type="text"/>
+                                      <input className="form-control" name="totalSaveMoney" numberOnly type="text"/>
                                     </div>
                                   </Row>
                                 </div>
