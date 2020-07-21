@@ -134,6 +134,29 @@
     font-weight: bold;
 }
 
+#carousel1 {
+    background-image: url("../images/carouselImg_01.jpg");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 500px;
+}
+
+#carousel2 {
+    background-image: url("../images/carouselImg_02.jpg");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 500px;
+}
+
+#carousel3 {
+    background-image: url("../images/carouselImg_03.jpg");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 500px;
+}
 
 
 @media only screen and (min-width: 1200px) {
