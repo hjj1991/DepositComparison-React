@@ -28,8 +28,8 @@ axios.interceptors.response.use( response => {
                 console.log("에잉??");
                 storage.remove('userLogin');
                 alert('세션이 만료되었습니다. 다시 로그인하세요.');
-                window.location.href = 'http://dognas.ipdisk.co.kr';
-                // window.location.href = 'http://localhost:3000';
+                // window.location.href = 'http://dognas.ipdisk.co.kr';
+                window.location.href = 'http://localhost:3000';
                 return Promise.reject(error);
             }
 
@@ -39,8 +39,8 @@ axios.interceptors.response.use( response => {
     
 });
 
-// var siteUrl = "http://localhost:8080";
-var siteUrl = "http://dognas.ipdisk.co.kr:8080";
+var siteUrl = "http://localhost:8080";
+// var siteUrl = "http://dognas.ipdisk.co.kr:8080";
 
 
 export function getCheckId(id) {
