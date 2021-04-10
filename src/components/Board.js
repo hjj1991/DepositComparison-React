@@ -22,7 +22,7 @@ const Board = ({ boardList, onClickPage, onClickDetail, onClickSearch, onClickWr
         firstPage = 1;
         lastPage = 9;
         if(lastPage > boardList.pageCount){
-            if(boardList.pageCount == 0){
+            if(boardList.pageCount === 0){
                 lastPage = 1;
             }else{
                 lastPage = boardList.pageCount;
@@ -90,7 +90,7 @@ const Board = ({ boardList, onClickPage, onClickDetail, onClickSearch, onClickWr
     const paginate = pageList.map((item, index) => {
         //console.log("아이템" + item);
         //console.log("중요" + currentPage)
-        if(item == currentPage){
+        if(item === currentPage){
     
             return(
                 // <Pagination.Item active>{item}</Pagination.Item>

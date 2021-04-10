@@ -1,6 +1,95 @@
 /* body {
     background-color: rgb(121, 131, 138)!important;
 } */
+@font-face {
+    font-family: "basic";
+    src: url("../css/fonts/BMEULJIROTTF.ttf") format("truetype");
+}
+
+* {
+    font-family: 'basic';
+}
+
+body {
+    margin:0;
+    padding:0;
+    height:100%;
+
+}
+
+#userPw, #userPw2 {
+    font-family: Arial, Helvetica, sans-serif!important;
+}
+
+/* 하단 정보 쓰는곳 */
+.custom-bottom {
+    height: 170px;
+    background-color: #343a40;
+    color: white;
+    line-height: 50px;
+    position: relative;
+    bottom:0;
+    width:100%;
+}
+
+.custom-bottom-copyrights {
+    text-align: center;
+}
+
+.custom-bottom-contents {
+    text-align: left;
+}
+
+.custom-bottom-contents a  {
+    color: white;
+}
+
+.custom-bottom-contents a:hover {
+    color: white;
+    text-decoration: none;
+}
+
+
+/* 커스텀 버튼
+*/
+#customButton{
+    background:#4b4b4b;
+    color:#fff;
+    border:none;
+    position:relative;
+    height:60px;
+    font-size:1.6em;
+    padding:0 2em;
+    cursor:pointer;
+    transition:800ms ease all;
+    outline:none;
+  }
+#customButton:hover{
+    background:#fff;
+    color:#1AAB8A;
+  }
+#customButton:before,#customButton:after{
+    content:'';
+    position:absolute;
+    top:0;
+    right:0;
+    height:2px;
+    width:0;
+    background: #1AAB8A;
+    transition:400ms ease all;
+  }
+#customButton:after{
+    right:inherit;
+    top:inherit;
+    left:0;
+    bottom:0;
+  }
+#customButton:hover:before,#customButton:hover:after{
+    width:100%;
+    transition:800ms ease all;
+}
+
+
 
 .row {
     padding-top: 10px;
@@ -137,7 +226,6 @@
 #carousel1 {
     background-image: url("../images/carouselImg_01.jpg");
     background-position: center center;
-    background-repeat: no-repeat;
     background-size: cover;
     height: 500px;
 }
@@ -145,7 +233,6 @@
 #carousel2 {
     background-image: url("../images/carouselImg_02.jpg");
     background-position: center center;
-    background-repeat: no-repeat;
     background-size: cover;
     height: 500px;
 }
@@ -153,27 +240,82 @@
 #carousel3 {
     background-image: url("../images/carouselImg_03.jpg");
     background-position: center center;
-    background-repeat: no-repeat;
     background-size: cover;
     height: 500px;
+}
+
+.selection-cell-header {
+    width: 3%;
 }
 
 
 @media only screen and (min-width: 1200px) {
 
+    .home-menu {
+        font-size: 40px;
+        font-weight: bold;
+    }
     .nav.nav-tabs{
         font-size: 30px;
     }
+
+    #carousel1, #carousel2, #carousel3 {
+        height: 600px;
+    }
+
+    .carousel-caption h3 {
+        font-size: 36px;
+        color:rgba(25, 33, 68, 0.733);
+        font-weight: bold;
+        background-color: rgba(252, 248, 248, 0.568);
+        border-radius: 5px;
+    }
+    
+    
+    .carousel-caption p {
+        font-size: 24px;
+        color:rgba(25, 33, 68, 0.733);
+        background-color: rgba(252, 248, 248, 0.568);
+        border-radius: 5px;
+    }
+    
 }
 
 @media only screen and (max-width: 1199px) {
+
+    .home-menu {
+        font-size: 30px;
+        font-weight: bold;
+    }
+
     .nav.nav-tabs{
         font-size: 30px;
     }
+
+    .carousel-caption h3 {
+        font-size: 30px;
+        color:rgba(25, 33, 68, 0.733);
+        font-weight: bold;
+        background-color: rgba(252, 248, 248, 0.568);
+        border-radius: 5px;
+    }
+    
+    
+    .carousel-caption p {
+        font-size: 20px;
+        color:rgba(25, 33, 68, 0.733);
+        background-color: rgba(252, 248, 248, 0.568);
+        border-radius: 5px;
+    }
+    
 
 }
 
 @media only screen and (max-width: 1108px) {
+
+    #carousel1, #carousel2, #carousel3 {
+        height: 400px;
+    }
 
 
 }
@@ -185,18 +327,68 @@
         width:100%;
     }
 
+    
+
 }
 
 @media only screen and (max-width: 768px) {
+
+    .home-menu {
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    #carousel1, #carousel2, #carousel3 {
+        height: 300px;
+    }
     .detail-box {
         margin-bottom: 20px;
     }
+    .main-contents {
+        font-size: 80%;
+    }
+    .main-contents .btn {
+        font-size: 12px;
+        padding: 6px;
+    }
+
+    .workload-table td:nth-child(2),
+    .workload-table td:nth-child(6),
+    .workload-table th:nth-child(2),
+    .workload-table th:nth-child(6)
+     {display: none;}
+
+     .carousel-caption h3 {
+        font-size: 18px;
+        color:rgba(25, 33, 68, 0.733);
+        font-weight: bold;
+        background-color: rgba(252, 248, 248, 0.568);
+        border-radius: 5px;
+    }
+    
+    
+    .carousel-caption p {
+        font-size: 16px;
+        color:rgba(25, 33, 68, 0.733);
+        background-color: rgba(252, 248, 248, 0.568);
+        border-radius: 5px;
+    }
+    
+    
 
 }
 
 
 
 @media only screen and (max-width: 576px) {
+
+#carousel1, #carousel2, #carousel3 {
+    height: 250px;
+}
+
+.react-bootstrap-table-pagination-total {
+    text-align: center;
+}
 
 
 }

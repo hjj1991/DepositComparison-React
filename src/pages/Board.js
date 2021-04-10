@@ -13,7 +13,7 @@ const Board = ({location, history}) => {
     // console.log(query);
     // console.log("야호 ");
     // console.log(history);
-    if (typeof query.page == "undefined"){
+    if (typeof query.page === "undefined"){
         page = 1;
     }
     return (

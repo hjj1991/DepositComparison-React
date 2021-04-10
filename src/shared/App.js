@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import {bindActionCreators} from 'redux';
 import { connect } from 'react-redux';
 import storage from 'lib/storage';
@@ -10,6 +9,7 @@ import loding from 'images/loading.gif';
 import Menu from 'components/Menu';
 import 'css/style.css'
 import InstallmentSaving from '../pages/InstallmentSaving';
+import Deposit from '../pages/Deposit';
 
 class App extends Component {
 
@@ -77,6 +77,7 @@ class App extends Component {
                 <Route exact path="/myinfo" component={MyInfo} />
                 <Route path="/sociallogin" component={SocialLogin} />
                 <Route path="/saving/installment" component={InstallmentSaving} />
+                <Route path="/saving/deposit" component={Deposit} />
                 {/* <Route exact path="/DashBoard" component={DashBoard}/>
                 <Route exact path="/workloads" component={Workloads}/> */}
                 {/* <Switch>
@@ -85,7 +86,7 @@ class App extends Component {
                 </Switch> */}
             </div>
             ):(
-                <img style={{"width": "100%"}} src={loding} />
+                <img style={{"width": "100%"}} src={loding} alt="로딩" />
             )
         );
     }

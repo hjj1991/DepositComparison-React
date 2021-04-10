@@ -3,7 +3,6 @@ import {bindActionCreators} from 'redux';
 import { connect } from 'react-redux';
 import BoardWrite from 'components/BoardWrite';
 import * as service from 'services/posts'
-import loding from 'images/loading.gif';
 import 'codemirror/lib/codemirror.css';
 import * as userInfoActions from 'store/modules/userLogin';
 import storage from 'lib/storage';

@@ -52,7 +52,7 @@ const SighUp = ({ signUpSubmit, checkUserValue, validationData, isOk }) => {
                     <Form.Label>이메일 주소</Form.Label>
                     <Form.Control type="email" placeholder="name@example.com" />
                 </Form.Group>
-                <Button variant="outline-secondary" type="submit" size="lg" block>
+                <Button style={{marginBottom: "10px"}} variant="outline-secondary" type="submit" size="lg" block>
                     회원가입
                 </Button>
             </Form>

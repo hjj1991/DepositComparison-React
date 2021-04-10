@@ -14,15 +14,15 @@ class SignUpContainer extends React.Component {
         super(props);
         this.state = {
             validationData:{
-                idCheckMessage: "5~20자의 영문 소문자, 숫자만 사용 가능합니다.",
+                idCheckMessage: "※ 5~20자의 영문 소문자, 숫자만 사용 가능합니다.",
                 idCheck: false,
                 idFontColor: "red",
-                pwCheckMessage: "비밀번호는 영문 숫자 조합 7 ~ 14자리 이상입니다.",
+                pwCheckMessage: "※ 비밀번호는 영문 숫자 조합 7 ~ 14자리 이상입니다.",
                 pwCheck: false,
                 pwFontColor: "red",
                 pw2Check: false,
                 nameCheck: false,
-                nameCheckMessage: "공백제외 한글, 영문, 숫자 2 ~ 10자로 입력해주세요.",
+                nameCheckMessage: "※ 공백제외 한글, 영문, 숫자 2 ~ 10자로 입력해주세요.",
                 nameFontColor: "red"
             },
             isOk: false
@@ -44,7 +44,7 @@ class SignUpContainer extends React.Component {
                 this.setState({
                     validationData: {                        
                         ...this.state.validationData,
-                        idCheckMessage : "이미 사용중이거나 탈퇴한 아이디입니다.",
+                        idCheckMessage : "※ 이미 사용중이거나 탈퇴한 아이디입니다.",
                         idFontColor: "red",
                         idCheck: false
                         
@@ -135,7 +135,7 @@ class SignUpContainer extends React.Component {
                 this.setState({
                     validationData: {                        
                         ...this.state.validationData,
-                        pwCheckMessage: "비밀번호는 영문 숫자 조합 7 ~ 14자리 이상입니다.",   
+                        pwCheckMessage: "※ 비밀번호는 영문 숫자 조합 7 ~ 14자리 이상입니다.",   
                         pwFontColor: "red",
                         pwCheck: false         
                     }
@@ -156,7 +156,7 @@ class SignUpContainer extends React.Component {
                 this.setState({
                     validationData: {                        
                         ...this.state.validationData,
-                        pw2CheckMessage: "비밀번호가 일치하지 않습니다.",
+                        pw2CheckMessage: "※ 비밀번호가 일치하지 않습니다.",
                         pw2FontColor: "red",
                         pw2Check: false
                     }
@@ -171,7 +171,7 @@ class SignUpContainer extends React.Component {
                 this.setState({
                     validationData: {                        
                         ...this.state.validationData,
-                        idCheckMessage: "5~20자의 영문 소문자, 숫자만 사용 가능합니다.",
+                        idCheckMessage: "※ 5~20자의 영문 소문자, 숫자만 사용 가능합니다.",
                         idFontColor: "red",
                         idCheck: false
                     }
@@ -198,7 +198,7 @@ class SignUpContainer extends React.Component {
                         ...this.state.validationData,
                         nameCheck: false,
                         nameFontColor: "red",
-                        nameCheckMessage: "공백제외 한글, 영문, 숫자 2 ~ 10자로 입력해주세요.",
+                        nameCheckMessage: "※ 공백제외 한글, 영문, 숫자 2 ~ 10자로 입력해주세요.",
                     }
                 })
             }

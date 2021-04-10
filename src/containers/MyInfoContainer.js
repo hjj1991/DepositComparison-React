@@ -5,7 +5,6 @@ import * as service from 'services/posts'
 import { connect } from 'react-redux';
 import * as userInfoActions from 'store/modules/userLogin';
 import storage from 'lib/storage';
-import Modal from '../components/Modal/Modal';
 import LoadingOverlay from 'react-loading-overlay';
 
 
@@ -21,8 +20,8 @@ class MyInfoContainer extends React.Component {
     }
 
     componentDidMount() {
-        console.log("하이");
-        console.log(this.props.userInfo);
+        // console.log("하이");
+        // console.log(this.props.userInfo);
         // if(typeof this.props.userInfo.X_REFRESH_TOKEN != "undefined"){
             this.getData();
         // }
@@ -61,7 +60,7 @@ class MyInfoContainer extends React.Component {
             this.setState({
                 pending: true
             })
-            const data = await service.postSignOut(this.props.userInfo.X_REFRESH_TOKEN);
+            await service.postSignOut(this.props.userInfo.X_REFRESH_TOKEN);
             const { UserInfoActions } = this.props;
                 storage.remove('userLogin');
                 UserInfoActions.deleteLoggedInfo();
@@ -81,7 +80,6 @@ class MyInfoContainer extends React.Component {
 
 
     render(){
-        console.log(this.state.isLoading);
         return(
             this.state.isLoading?
             (

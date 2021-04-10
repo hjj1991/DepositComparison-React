@@ -1,7 +1,5 @@
 import axios from 'axios';
 import storage from 'lib/storage';
-import userLogin from '../store/modules/userLogin';
-import { useDispatch  } from 'react-redux'
 
 
 
@@ -28,8 +26,8 @@ axios.interceptors.response.use( response => {
                 console.log("에잉??");
                 storage.remove('userLogin');
                 alert('세션이 만료되었습니다. 다시 로그인하세요.');
-                // window.location.href = 'http://dognas.ipdisk.co.kr';
-                window.location.href = 'http://localhost:3000';
+                window.location.href = 'http://dognas.ipdisk.co.kr';
+                // window.location.href = 'http://localhost:3000';
                 return Promise.reject(error);
             }
 
@@ -39,8 +37,8 @@ axios.interceptors.response.use( response => {
     
 });
 
-var siteUrl = "http://localhost:8080";
-// var siteUrl = "http://dognas.ipdisk.co.kr:8080";
+// var siteUrl = "http://localhost:8080";
+var siteUrl = "http://dognas.ipdisk.co.kr:8080";
 
 
 export function getCheckId(id) {
@@ -48,7 +46,7 @@ export function getCheckId(id) {
 }
 
 export function getUserDetail(token){
-    console.log(token);
+    // console.log(token);
     return axios(
         {
             url:siteUrl + '/v1/user',
@@ -151,6 +149,114 @@ export function postLoginToKakao(data){
     });
 }
 
+export function getTopInstallmentSavingList(size) {
+    return axios.get(siteUrl + `/v1/insmoney?size=` + size);
+}
+
+
 export function getInstallmentSavingList() {
     return axios.get(siteUrl + `/v1/insmoney/`);
+}
+
+
+export function getInstallmentSavingCommentList(installmentSavingId) {
+    return axios.get(siteUrl + '/v1/insmoney/comments/list/' + installmentSavingId);
+}
+
+export function deleteInstallmentSavingComment(installmentSavingId, token) {
+    return axios(
+        {
+            url:siteUrl + '/v1/insmoney/comments/delete/' + installmentSavingId,
+            method: 'delete',
+            headers: {
+                "X_AUTH_TOKEN": token
+            }
+        }
+    )
+}
+
+export function addInstallmentSavingComment(installmentSavingId, token, contents) {
+    return axios(
+        {
+            url:siteUrl + '/v1/insmoney/comments/add/' + installmentSavingId,
+            method: 'post',
+            data: {
+                "contents": contents
+            },
+            headers: {
+                "X_AUTH_TOKEN": token
+            }
+        }
+    )
+}
+
+export function modifyInstallmentSavingComment(commentId, token, contents) {
+    return axios(
+        {
+            url:siteUrl + '/v1/insmoney/comments/modify/' + commentId,
+            method: 'put',
+            data: {
+                "contents": contents
+            },
+            headers: {
+                "X_AUTH_TOKEN": token
+            }
+        }
+    )
+}
+
+export function getDepositList() {
+    return axios.get(siteUrl + `/v1/depositmoney/`);
+}
+
+export function getTopDepositSavingList(size) {
+    return axios.get(siteUrl + `/v1/depositmoney?size=` + size);
+}
+
+
+
+export function getDepositCommentList(depositId) {
+    return axios.get(siteUrl + '/v1/depositmoney/comments/list/' + depositId);
+}
+
+export function deleteDepositComment(depositId, token) {
+    return axios(
+        {
+            url:siteUrl + '/v1/depositmoney/comments/delete/' + depositId,
+            method: 'delete',
+            headers: {
+                "X_AUTH_TOKEN": token
+            }
+        }
+    )
+}
+
+export function addDepositComment(depositId, token, contents) {
+    return axios(
+        {
+            url:siteUrl + '/v1/depositmoney/comments/add/' + depositId,
+            method: 'post',
+            data: {
+                "contents": contents
+            },
+            headers: {
+                "X_AUTH_TOKEN": token
+            }
+        }
+    )
+}
+
+export function modifyDepositComment(commentId, token, contents) {
+    return axios(
+        {
+            url:siteUrl + '/v1/depositmoney/comments/modify/' + commentId,
+            method: 'put',
+            data: {
+                "contents": contents
+            },
+            headers: {
+                "X_AUTH_TOKEN": token
+            }
+        }
+    )
 }

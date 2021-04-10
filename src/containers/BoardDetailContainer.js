@@ -67,7 +67,7 @@ class BoardDetailContainer extends React.Component {
                         onClickPage={this.handleChangePage}
                         onClickModify={this.handleModifyBoard}
                         />):
-                        <img style={{"width": "100%"}} src={loding} />
+                        <img style={{"width": "100%"}} src={loding} alt="loading" />
                 
                 )
 

@@ -1,7 +1,6 @@
 import { createAction, handleActions } from 'redux-actions';
 import { pender } from 'redux-pender';
 import * as service from 'services/posts';
-import { Map } from 'immutable';
 // import { listenerCount } from 'cluster';
 
 function authUserWorkAPI(userInfo){

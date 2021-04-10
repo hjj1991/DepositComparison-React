@@ -19,14 +19,13 @@ class InstallmentSavingContainer extends React.Component {
     }
 
     handleChangeType = (e) => {
-        var name = name;
         // e.currentTarget.totalSaveMoney.value = e.currentTarget.totalSaveMoney.value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         e.currentTarget.saveMoney.value = e.currentTarget.saveMoney.value.toString().replace(/,/gi, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         e.currentTarget.totalSaveMoney.value = e.currentTarget.saveMoney.value.replace(/,/gi, "") * e.currentTarget.saveTrm.value;
         e.currentTarget.totalSaveMoney.value = e.currentTarget.totalSaveMoney.value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         const { InstallmentSavingActions } = this.props;
-        InstallmentSavingActions.setDataChange(e.currentTarget);
-        console.log(e.currentTarget.totalSaveMoney);
+        InstallmentSavingActions.setInstallmentDataChange(e.currentTarget);
+        // console.log(e.currentTarget.totalSaveMoney);
         
     }
 
@@ -34,29 +33,29 @@ class InstallmentSavingContainer extends React.Component {
         const { InstallmentSavingActions } = this.props;
         try{
             await InstallmentSavingActions.getInstallmentSavingList();
-            console.log("요청완료");
+            // console.log("요청완료");
         } catch(e) {
-            console.log("에러발생");
+            // console.log("에러발생");
         }
         
     }
 
     componentDidMount() {
         this.getInstallmentSavingListFunction();
-        console.log(this.props.installmentSavingList);
+        // console.log(this.props.installmentSavingList);
         
         
       }
 
     render(){
-        const { success, error, installmentSavingList} = this.props;
+        const { success, installmentSavingList} = this.props;
         return(
             success?
             <InstallmentSaving 
                 installmentSavingList={installmentSavingList}
                 onChangeType={this.handleChangeType}
             />
-            :<img style={{"width": "100%"}} src={loding} />
+            :<img style={{"width": "100%"}} src={loding}  alt="loading" />
         )
     }
 

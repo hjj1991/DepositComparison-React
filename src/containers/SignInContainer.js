@@ -4,7 +4,6 @@ import { bindActionCreators } from 'redux';
 import * as service from 'services/posts'
 import { connect } from 'react-redux';
 import * as loginOkActions from '../store/modules/userLogin';
-import loding from 'images/loading.gif';
 import storage from 'lib/storage';
 import LoadingOverlay from 'react-loading-overlay';
 
@@ -38,7 +37,7 @@ class SignInContainer extends React.Component {
                 pending: true
             })
             const data = await service.postSignIn(signInData);
-            console.log(data);
+            // console.log(data);
             if(data.data.success){
                 LoginOkActions.setLoggedInfo(data.data.data);
                 storage.set('userLogin', data.data.data);
@@ -53,19 +52,24 @@ class SignInContainer extends React.Component {
             
             
         } catch(e) {
-            console.log('에러가 발생!');
+            // console.log('에러가 발생!');
         }
     }
 
     hanldeLoginClick = (e) => {
         e.preventDefault(); 
-        console.log(e.target);
-        const signInData ={
-            userId: e.target.userId.value,
-            userPw: e.target.userPw.value,
+        // console.log(e.target);
+        if(e.target.userId.value === ""){
+            alert("아이디를 입력해주세요.");
+        }else if( e.target.userPw.value === ""){
+            alert("비밀번호를 입력해주세요.")
+        }else{
+            const signInData ={
+                userId: e.target.userId.value,
+                userPw: e.target.userPw.value,
+            }
+            this.getPost(signInData);
         }
-        this.getPost(signInData);
-        
     }
 
     render(){

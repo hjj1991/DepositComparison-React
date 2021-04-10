@@ -1,12 +1,10 @@
 import React from 'react';
-import {Container, Row, Col, Form, Button, ListGroup} from 'react-bootstrap'
-import { Redirect } from 'react-router-dom';
-import loding from 'images/loading.gif';
+import {Container, Row, Col, Button, ListGroup} from 'react-bootstrap'
 
 
 
 
-const MyInfo = ({userInfo, isLoading, onClickLogout}) => {
+const MyInfo = ({userInfo, onClickLogout}) => {
 
     return (
         <Container>

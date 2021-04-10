@@ -1,7 +1,6 @@
 import React from 'react';
 import Board from 'components/Board';
 import * as service from 'services/posts'
-import {browserHistory} from 'react-router-dom';
 import loding from 'images/loading.gif';
 
 // import { bindActionCreators } from 'redux';
@@ -114,7 +113,7 @@ class BoardContainer extends React.Component {
                 searchTarget={this.state.searchTarget}
                 searchKeyword={this.state.searchKeyword}
                 />):
-                <img style={{"width": "100%"}} src={loding} />
+                <img style={{"width": "100%"}} src={loding} alt="loading" />
     
         )
     }

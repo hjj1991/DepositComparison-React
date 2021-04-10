@@ -1,43 +1,42 @@
 import { createAction, handleActions } from 'redux-actions';
 import { pender } from 'redux-pender';
 import * as service from 'services/posts';
-import { Map } from 'immutable';
 // import { listenerCount } from 'cluster';
 
 function axiosGetInstallmentSavingList(){
     return service.getInstallmentSavingList();
 }
 
-function deepFreeze(obj) {
-    const props = Object.getOwnPropertyNames(obj);
+// function deepFreeze(obj) {
+//     const props = Object.getOwnPropertyNames(obj);
   
-    props.forEach((name) => {
-      const prop = obj[name];
-      if(typeof prop === 'object' && prop !== null) {
-        deepFreeze(prop);
-      }
-    });
-    return Object.freeze(obj);
-}
+//     props.forEach((name) => {
+//       const prop = obj[name];
+//       if(typeof prop === 'object' && prop !== null) {
+//         deepFreeze(prop);
+//       }
+//     });
+//     return Object.freeze(obj);
+// }
 
-function cloneObject(obj) {
-    var clone = {};
-    for(var i in obj) {
-        if(typeof(obj[i])=="object" && obj[i] != null)
-            clone[i] = cloneObject(obj[i]);
-        else
-            clone[i] = obj[i];
-    }
-    return clone;
-}
+// function cloneObject(obj) {
+//     var clone = {};
+//     for(var i in obj) {
+//         if(typeof(obj[i])=="object" && obj[i] != null)
+//             clone[i] = cloneObject(obj[i]);
+//         else
+//             clone[i] = obj[i];
+//     }
+//     return clone;
+// }
 
 
 
 const GET_INSTALLMENTSAVING_LIST = 'GET_INSTALLMENTSAVING_LIST';
-const SET_DATA_CHANGE = 'SET_DATA_CHANGE';
+const SET_INSTALLMENT_DATA_CHANGE = 'SET_INSTALLMENT_DATA_CHANGE';
 
 
-export const setDataChange = createAction(SET_DATA_CHANGE, (formData) => { return formData;});
+export const setInstallmentDataChange = createAction(SET_INSTALLMENT_DATA_CHANGE, (formData) => { return formData;});
 export const getInstallmentSavingList = createAction(GET_INSTALLMENTSAVING_LIST, axiosGetInstallmentSavingList);
 
 
@@ -58,7 +57,7 @@ export default handleActions({
             onFailure: (state, action) => state
         */
         onSuccess: (state, action) => { // 성공했을때 해야 할 작업이 따로 없으면 이 함수 또한 생략해도 됩니다.
-
+            
             const tempData = action.payload.data.list;
             let result = JSON.parse(JSON.stringify(tempData));
             result = result.map( (element) => {
@@ -68,6 +67,7 @@ export default handleActions({
                 });
                 if(element.optionList.length !== 0)
                     return element
+                    
             }).filter(temp2 => {
                 return typeof temp2 !== 'undefined';
             });
@@ -79,12 +79,12 @@ export default handleActions({
         }
         // 함수가 생략됐을때 기본 값으론 (state, action) => state 가 설정됩니다 (state 를 그대로 반환한다는 것이죠)
     }),
-    [SET_DATA_CHANGE]: (state, action) => {
+    [SET_INSTALLMENT_DATA_CHANGE]: (state, action) => {
         const tempData = state.data;
         let result = JSON.parse(JSON.stringify(tempData));
 
 
-
+        // console.log("안녕하세요?")
         // 전체, 정액접립식, 자유적립식 필터, 저축예정 기간 필터, 단리복리 필터
         
             result = result.map( (element) => {
@@ -94,6 +94,7 @@ export default handleActions({
                 });
                 if(element.optionList.length !== 0)
                     return element
+
             }).filter(temp2 => {
                 return typeof temp2 !== 'undefined';
             });
@@ -116,7 +117,10 @@ export default handleActions({
         //저축금액 필터
         if(action.payload.totalSaveMoney.value !== ""){
             result = result.filter( temp => {
-                return temp.maxLimit > action.payload.saveMoney.value.replace(/,/gi, "");
+                if(temp.maxLimit === 0)
+                    return temp
+                else
+                    return temp.maxLimit > action.payload.saveMoney.value.replace(/,/gi, "");
             })
         }
         return{

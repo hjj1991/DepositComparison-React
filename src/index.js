@@ -7,7 +7,7 @@ import { createStore, applyMiddleware, compose   } from 'redux';
 import rootReducer from './store/modules';
 // **** (1) Provider 불러오기
 import { Provider } from 'react-redux';
-import { createLogger } from 'redux-logger';
+// import { createLogger } from 'redux-logger';
 import ReduxThunk from 'redux-thunk';
 import penderMiddleware from 'redux-pender';
 import Root from './client/Root';
@@ -26,10 +26,11 @@ const composeEnhancers =
       // Specify extension’s options like name, actionsBlacklist, actionsCreators, serialize...
     }) : compose;
 
-const logger = createLogger();
+// const logger = createLogger();
 
 
-const store = createStore(rootReducer,  composeEnhancers(applyMiddleware(logger, ReduxThunk, penderMiddleware())));
+// const store = createStore(rootReducer,  composeEnhancers(applyMiddleware(logger, ReduxThunk, penderMiddleware())));
+const store = createStore(rootReducer,  composeEnhancers(applyMiddleware(ReduxThunk, penderMiddleware())));
 // const store = createStore(rootReducer,  composeEnhancers(applyMiddleware(logger, ReduxThunk)));
 
 // const store = createStore(rootReducer,  applyMiddleware(logger, ReduxThunk));

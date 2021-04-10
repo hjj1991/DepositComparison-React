@@ -1,17 +1,18 @@
-import React, { useRef, Fragment } from 'react'
-import { Container, Row, Col, Form, Button, ListGroup } from 'react-bootstrap'
+import React, { Fragment } from 'react'
+import { Container, Row, Form } from 'react-bootstrap'
 import BootstrapTable from 'react-bootstrap-table-next';
-import cellEditFactory, { Type } from 'react-bootstrap-table2-editor';
 import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup'
 import ToggleButton from 'react-bootstrap/ToggleButton'
 import paginationFactory, { PaginationProvider, PaginationListStandalone, SizePerPageDropdownStandalone, PaginationTotalStandalone } from 'react-bootstrap-table2-paginator';
-import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
+import ToolkitProvider from 'react-bootstrap-table2-toolkit';
+import InstallmentSavingCommentContainer from 'containers/InstallmentSavingCommentContainer';
+import investmentImg from 'images/investment.png'
 
 
 const InstallmentSaving = ({ installmentSavingList, onChangeType }) => {
 
 
-  const inputEl = useRef(null);
+  // const inputEl = useRef(null);
   const products = installmentSavingList;
   const columns = [
     {
@@ -21,7 +22,7 @@ const InstallmentSaving = ({ installmentSavingList, onChangeType }) => {
       headerAlign: 'center',
       align: 'center',
       headerStyle: (colum, colIndex) => {
-        return { width: '20%', textAlign: 'center', 'white-space': 'nowrap' };
+        return { width: '20%', textAlign: 'center', 'whiteSpace': 'nowrap' };
       }
     },
     {
@@ -41,7 +42,7 @@ const InstallmentSaving = ({ installmentSavingList, onChangeType }) => {
       headerAlign: 'center',
       align: 'center',
       headerStyle: (colum, colIndex) => {
-        return { width: '5%', textAlign: 'center' };
+        return { width: '10%', textAlign: 'center' };
       },
       formatter: (cell, row) => {
           return cell.toFixed(2) + "%";
@@ -67,7 +68,7 @@ const InstallmentSaving = ({ installmentSavingList, onChangeType }) => {
       headerAlign: 'center',
       align: 'center',
       headerStyle: (colum, colIndex) => {
-        return { width: '20%', textAlign: 'center'};
+        return { width: '15%', textAlign: 'center'};
       },
       formatter: (cell, row) => {
         if(cell === "1")
@@ -105,7 +106,7 @@ const InstallmentSaving = ({ installmentSavingList, onChangeType }) => {
             <Row>
                 <div className="col-12 col-md-6 detail-box">
                     <div className="product-title">상품문의</div><br/>
-                        <a href={row.bankInfo.hompUrl}>{row.bankInfo.korCoNm}</a><br/>
+                        <a target="_blank" rel="noopener noreferrer" href={row.bankInfo.hompUrl}>{row.bankInfo.korCoNm}</a><br/>
                             {row.bankInfo.calTel}
                     </div>
                 <div className="col-12 col-md-6 detail-box">
@@ -117,16 +118,16 @@ const InstallmentSaving = ({ installmentSavingList, onChangeType }) => {
                 <div className="col-12 col-md-6 detail-box">
                     <div className="product-title">우대조건</div><br/>
                         {
-                            row.spclCnd.split('\n').map( line => {
-                                return (<span>{line}<br/></span>)
+                            row.spclCnd.split('\n').map( (line, index) => {
+                                return (<span key={index}>{line}<br/></span>)
                             })
                         }
                 </div>
                 <div className="col-12 col-md-6 detail-box">
                     <div className="product-title">만기후 이자율</div><br/>
                         {
-                            row.mtrtInt.split('\n').map( line => {
-                                return (<span>{line}<br/></span>)
+                            row.mtrtInt.split('\n').map( (line, index) => {
+                                return (<span key={index}>{line}<br/></span>)
                             })
                         }
                 </div>
@@ -141,6 +142,12 @@ const InstallmentSaving = ({ installmentSavingList, onChangeType }) => {
                         {row.etcNote}
                 </div>
             </Row>
+            <Row>
+              <div className="col-12 detail-box">
+              <div className="product-title">댓글</div><br/>
+              <InstallmentSavingCommentContainer installmentSavingId={row.id}/>
+              </div>
+            </Row>
         </Container>
       )
     }
@@ -148,9 +155,9 @@ const InstallmentSaving = ({ installmentSavingList, onChangeType }) => {
   };
 
   const customTotal = (from, to, size) => (
-    <span className="react-bootstrap-table-pagination-total">
+    <div className="react-bootstrap-table-pagination-total">
       Showing { from} to { to} of { size} Results
-    </span>
+    </div>
   );
 
   const paginationOptions = {
@@ -202,7 +209,7 @@ const InstallmentSaving = ({ installmentSavingList, onChangeType }) => {
   return (
     <div className="container-fluid">
       <div className="main-contents" >
-        <p className="main-contents-title"><b>적금</b></p>
+        <p className="main-contents-title"><img width="50px" style={{paddingBottom:"20px"}} src={investmentImg} alt="investmentImg" /> <b>적금</b></p>
         <Fragment>
           <PaginationProvider
             pagination={
@@ -231,7 +238,7 @@ const InstallmentSaving = ({ installmentSavingList, onChangeType }) => {
                                   <Row>
                                     <div className="col-5 saving-title">월 저축 금액</div>
                                     <div className="col-7">
-                                      <input className="form-control" name="saveMoney" numberOnly type="text"/>
+                                      <input className="form-control" name="saveMoney" numberonly="true" type="text"/>
                                     </div>
                                   </Row>
                                 </div>
@@ -239,7 +246,7 @@ const InstallmentSaving = ({ installmentSavingList, onChangeType }) => {
                                   <Row>
                                     <div className="col-5 saving-title">총 저축 금액</div>
                                     <div className="col-7">
-                                      <input className="form-control" name="totalSaveMoney" numberOnly type="text"/>
+                                      <input className="form-control" name="totalSaveMoney" numberonly="true" type="text"/>
                                     </div>
                                   </Row>
                                 </div>

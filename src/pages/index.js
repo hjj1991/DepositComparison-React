@@ -7,3 +7,4 @@ export { default as BoardWrite } from './BoardWrite';
 export { default as MyInfo } from './MyInfo';
 export { default as SocialLogin } from './SocialLogin';
 export { default as InstallmentSaving } from './InstallmentSaving';
+export { default as Deposit } from './Deposit';

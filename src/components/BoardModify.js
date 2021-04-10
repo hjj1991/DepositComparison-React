@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import {Container, Row, Col, Button, Form} from 'react-bootstrap'
 import Modal from '../components/Modal/Modal';
 import loading from 'images/loading.gif';
@@ -12,12 +12,12 @@ import { Editor } from '@toast-ui/react-editor'
 const BoardModify = ({ title, contents, onChangeTitleValue, submitModifyBoard, mount, isOk, pending}) => {
     let editorRef = React.createRef();
 
-    if(isOk == true && pending == false){
+    if(isOk === true && pending === false){
         return(
             <Modal isOpen={isOk} contents="글이 수정되었습니다." />
         )
-    }else if(isOk == false && pending == true){
-        return <img style={{"width": "100%"}} src={loading} />
+    }else if(isOk === false && pending === true){
+        return <img style={{"width": "100%"}} src={loading} alt="loading" />
     }else if(mount){//수정할때 Contents 값이 마운트 되었는지 확인하여 마운트 되면 렌더링 한다.
         return(
             <Container>
@@ -89,7 +89,7 @@ const BoardModify = ({ title, contents, onChangeTitleValue, submitModifyBoard, m
             </Container>
         )
     }else{
-        return <img style={{"width": "100%"}} src={loading} />
+        return <img style={{"width": "100%"}} src={loading} alt="로딩" />
     }
 
         

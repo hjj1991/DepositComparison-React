@@ -1,11 +1,9 @@
 import React from 'react';
-import MyInfo from 'components/MyInfo';
 import { bindActionCreators } from 'redux';
 import * as service from 'services/posts'
 import { connect } from 'react-redux';
 import * as loginOkActions from 'store/modules/userLogin';
 import storage from 'lib/storage';
-import Modal from '../components/Modal/Modal';
 import LoadingOverlay from 'react-loading-overlay';
 import Home from 'pages/Home';
 
